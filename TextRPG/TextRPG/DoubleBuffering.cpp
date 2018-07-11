@@ -1,19 +1,32 @@
+#include "DoubleBuffering.h"
 
 #include <windows.h>
+
+#include "MainGame.h"
 
 static int nBufferIndex;
 static HANDLE hBuffer[2];
 
-void CreateBuffer()
+DoubleBuffering::DoubleBuffering()
+{
+
+}
+
+DoubleBuffering::~DoubleBuffering()
+{
+
+}
+void DoubleBuffering::CreateBuffer()
 {
 	CONSOLE_CURSOR_INFO cci;
-	COORD size = { 80, 25 };
+
+	COORD size = { 100 , 50 };
 	SMALL_RECT rect;
 
 	rect.Left = 0;
-	rect.Right = 80 - 1;
+	rect.Right = 100 ;
 	rect.Top = 0;
-	rect.Bottom = 25 - 1;
+	rect.Bottom = 50;
 
 	hBuffer[0] = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
 	SetConsoleScreenBufferSize(hBuffer[0], size);
@@ -21,36 +34,36 @@ void CreateBuffer()
 	hBuffer[1] = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
 	SetConsoleScreenBufferSize(hBuffer[1], size);
 	SetConsoleWindowInfo(hBuffer[1], TRUE, &rect);
-
 	cci.dwSize = 1;
 	cci.bVisible = FALSE;
 	SetConsoleCursorInfo(hBuffer[0], &cci);
 	SetConsoleCursorInfo(hBuffer[1], &cci);
 }
 
-void BufferWrite(int x, int y, char *string)
+void DoubleBuffering::BufferWrite(int _x, int _y, const char* _string)
 {
 	DWORD dw;
-	COORD CursorPosition = { x, y };
+	COORD CursorPosition = { _x * 2, _y };
 	SetConsoleCursorPosition(hBuffer[nBufferIndex], CursorPosition);
-	WriteFile(hBuffer[nBufferIndex], string, strlen(string), &dw, NULL);
+	WriteFile(hBuffer[nBufferIndex], _string, strlen(_string), &dw, NULL);
 }
 
-void Flipping()
+void DoubleBuffering::Flipping()
 {
 	Sleep(33);
 	SetConsoleActiveScreenBuffer(hBuffer[nBufferIndex]);
 	nBufferIndex = !nBufferIndex;
 }
 
-void BufferClear()
+void DoubleBuffering::BufferClear()
 {
+
 	COORD Coor = { 0, 0 };
 	DWORD dw;
-	FillConsoleOutputCharacter(hBuffer[nBufferIndex], ' ', 80 * 25, Coor, &dw);
+	FillConsoleOutputCharacter(hBuffer[nBufferIndex], ' ', 100 * 50, Coor, &dw);
 }
 
-void Release()
+void DoubleBuffering::Release()
 {
 	CloseHandle(hBuffer[0]);
 	CloseHandle(hBuffer[1]);

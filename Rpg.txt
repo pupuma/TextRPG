@@ -1,3 +1,5 @@
+0711
+
 1. 상자 뛰움
 
 <더블 버퍼링>
@@ -10,9 +12,22 @@
 키 입력시 이동 
 
 전투시스템
+//SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11,12); 글자색
 
+SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
 
+출처: http://tikcode.tistory.com/2 [TikLog]
 =========================
 
 update() -> render()
 -> reset
+
+============================
+더블 버퍼링 성공
+텍스트 색깔 적용중
+
+-> 인터페이스 적용
+리펙토링 작업
+
+-> 캐릭터 생성 
+=============================

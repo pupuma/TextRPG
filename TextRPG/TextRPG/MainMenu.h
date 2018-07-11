@@ -1,6 +1,25 @@
 #pragma once
 
+enum Color
+{
+	BLACK,
+	BLUE,
+	REEN,
+	CYAN,
+	RED,
+	MAGENTA,
+	BROWN,
+	LIGHTGRAY,
+	DARKGRAY,
+	LIGHTBLUE,
+	LIGHTGREEN,
+	LIGHTCYAN,
+	LIGHTRED,
+	LIGHTMAGENTA,
+	YELLOW,
+	WHITE, 
 
+};
 class MainMenu
 {
 private:
@@ -20,4 +39,7 @@ public:
 	void Render();
 	void GotoXY(int  _x, int _y, const char* pszStr);
 	void DrawMap();
+	void Textcolor(int foreground, int background);
+
+
 };

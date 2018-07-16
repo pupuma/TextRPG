@@ -1,6 +1,29 @@
 #pragma once
 
-struct Console;
+
+enum eConsoleColor
+{
+	BLACK,
+	BLUE,
+	REEN,
+	CYAN,
+	RED,
+	MAGENTA,
+	BROWN,
+	LIGHTGRAY,
+	DARKGRAY,
+	LIGHTBLUE,
+	LIGHTGREEN,
+	LIGHTCYAN,
+	LIGHTRED,
+	LIGHTMAGENTA,
+	YELLOW,
+	WHITE,
+
+};
+
+
+//struct Console;
 
 class DoubleBuffering
 {
@@ -12,6 +35,8 @@ public:
 public:
 	void CreateBuffer();
 	void BufferWrite(int _x, int _y,const char* _string);
+	void BufferWrite(int _x, int _y, const char* _string, eConsoleColor _fcolor, eConsoleColor _bcolor);
+
 	void Flipping();
 	void BufferClear();
 	void Release();

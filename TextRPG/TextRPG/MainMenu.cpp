@@ -13,6 +13,8 @@ MainMenu::MainMenu()
 	MAP_ADJ_X = 3;
 	MAP_ADJ_Y = 2;
 	//sztitle[15] = { "Hello World!!" };
+
+	iMovingCurser = 0;
 }
 
 MainMenu::~MainMenu()
@@ -29,6 +31,7 @@ void MainMenu::Render()
 		buffer.CreateBuffer();
 
 		//
+		int iKey = 0;
 		int nDir = 1;
 		int x = (MAP_X - 5);
 		//system("cls");
@@ -54,8 +57,67 @@ void MainMenu::Render()
 			DrawMap();
 
 			
-			buffer.BufferWrite(MAP_ADJ_Y + 5, MAP_Y + MAP_ADJ_Y +5, "새로 하기 ");
+			/*
+			초기화 -> 맨처음 새로하기만 음영 조절 -> 반향키가 0 1 2 로 범위 설정
+			x -- 일경우 0 1경우 0 2일 경우 1 2
+				
+			*/
+			buffer.BufferWrite(MAP_ADJ_Y + 3, MAP_Y + MAP_ADJ_Y + 5, " 새 로 하 기 ", eConsoleColor::WHITE, eConsoleColor::BLUE);
+			//buffer.BufferWrite(MAP_ADJ_Y + 13, MAP_Y + MAP_ADJ_Y + 5, " 이 어 하 기 ", eConsoleColor::WHITE, eConsoleColor::RED);
+			buffer.BufferWrite(MAP_ADJ_Y + 13, MAP_Y + MAP_ADJ_Y + 5, " 이 어 하 기 ");
+			buffer.BufferWrite(MAP_ADJ_Y + 23, MAP_Y + MAP_ADJ_Y + 5, " 끝 내 기 ");
+
+		
+
+			if (0 == iMovingCurser)
+			{
+				buffer.BufferWrite(MAP_ADJ_Y + 3, MAP_Y + MAP_ADJ_Y + 5, " 새 로 하 기 ", eConsoleColor::WHITE, eConsoleColor::BLUE);
+				//buffer.BufferWrite(MAP_ADJ_Y + 13, MAP_Y + MAP_ADJ_Y + 5, " 이 어 하 기 ", eConsoleColor::WHITE, eConsoleColor::RED);
+				buffer.BufferWrite(MAP_ADJ_Y + 13, MAP_Y + MAP_ADJ_Y + 5, " 이 어 하 기 ");
+				buffer.BufferWrite(MAP_ADJ_Y + 23, MAP_Y + MAP_ADJ_Y + 5, " 끝 내 기 ");
+			}
+			else if (1 == iMovingCurser)
+			{
+				buffer.BufferWrite(MAP_ADJ_Y + 3, MAP_Y + MAP_ADJ_Y + 5, " 새 로 하 기 " );
+				//buffer.BufferWrite(MAP_ADJ_Y + 13, MAP_Y + MAP_ADJ_Y + 5, " 이 어 하 기 ", eConsoleColor::WHITE, eConsoleColor::RED);
+				buffer.BufferWrite(MAP_ADJ_Y + 13, MAP_Y + MAP_ADJ_Y + 5, " 이 어 하 기 ",eConsoleColor::WHITE, eConsoleColor::BLUE);
+				buffer.BufferWrite(MAP_ADJ_Y + 23, MAP_Y + MAP_ADJ_Y + 5, " 끝 내 기 ");
+			}
+			else if (2 == iMovingCurser)
+			{
+				buffer.BufferWrite(MAP_ADJ_Y + 3, MAP_Y + MAP_ADJ_Y + 5, " 새 로 하 기 ");
+				//buffer.BufferWrite(MAP_ADJ_Y + 13, MAP_Y + MAP_ADJ_Y + 5, " 이 어 하 기 ", eConsoleColor::WHITE, eConsoleColor::RED);
+				buffer.BufferWrite(MAP_ADJ_Y + 13, MAP_Y + MAP_ADJ_Y + 5, " 이 어 하 기 ");
+				buffer.BufferWrite(MAP_ADJ_Y + 23, MAP_Y + MAP_ADJ_Y + 5, " 끝 내 기 ", eConsoleColor::WHITE, eConsoleColor::BLUE);
+			}
+			
+			
+			
 			buffer.Flipping();
+
+			iKey = _getch();
+
+			switch (iKey)
+			{
+			case eKey::LEFT:
+				iMovingCurser--;
+				break;
+			case eKey::RIGHT:
+				iMovingCurser++;
+				break;
+			case eKey::ENTER:
+				break;
+			}
+
+			if (0 > iMovingCurser)
+			{
+				iMovingCurser = 0;
+			}
+			
+			if (2 < iMovingCurser)
+			{
+				iMovingCurser = 2;
+			}
 			//Sleep(33);
 			system("cls");
 		}

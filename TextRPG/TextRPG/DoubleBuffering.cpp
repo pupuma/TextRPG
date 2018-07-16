@@ -44,9 +44,25 @@ void DoubleBuffering::BufferWrite(int _x, int _y, const char* _string)
 {
 	DWORD dw;
 	COORD CursorPosition = { _x * 2, _y };
+
+	SetConsoleTextAttribute(hBuffer[nBufferIndex],7);
+
 	SetConsoleCursorPosition(hBuffer[nBufferIndex], CursorPosition);
 	WriteFile(hBuffer[nBufferIndex], _string, strlen(_string), &dw, NULL);
 }
+
+void DoubleBuffering::BufferWrite(int _x, int _y, const char* _string, eConsoleColor _fcolor, eConsoleColor _bcolor)
+{
+	DWORD dw;
+	COORD CursorPosition = { _x * 2, _y };
+	int color = _fcolor + _bcolor * 16;
+
+	SetConsoleTextAttribute(hBuffer[nBufferIndex], color);
+
+	SetConsoleCursorPosition(hBuffer[nBufferIndex], CursorPosition);
+	WriteFile(hBuffer[nBufferIndex], _string, strlen(_string), &dw, NULL);
+}
+
 
 void DoubleBuffering::Flipping()
 {

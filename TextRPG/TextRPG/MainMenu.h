@@ -1,5 +1,6 @@
 #pragma once
 
+class DoubleBuffering;
 enum eKey
 {
 	LEFT = 75,
@@ -17,14 +18,23 @@ private:
 	int MAP_ADJ_Y;
 
 	int iMovingCurser;
+
+	int iKey;
+	int nDir;
+	int x;
 	//char sztitle[15];
+	DoubleBuffering* buffer;
 
 public:
 	MainMenu();
 	~MainMenu();
 
 public:
+	void Clear();
+	void Update();
 	void Render();
+	void Flipping();
+	void Release();
 	void GotoXY(int  _x, int _y, const char* pszStr);
 	void DrawMap();
 	void Textcolor(int foreground, int background);

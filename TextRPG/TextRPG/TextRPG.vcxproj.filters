@@ -30,11 +30,11 @@
     <ClInclude Include="MainGame.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="MainMenu.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="DoubleBuffering.h">
       <Filter>소스 파일\Buffering</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>소스 파일\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -47,11 +47,11 @@
     <ClCompile Include="MainGame.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="MainMenu.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="DoubleBuffering.cpp">
       <Filter>소스 파일\Buffering</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>소스 파일\Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

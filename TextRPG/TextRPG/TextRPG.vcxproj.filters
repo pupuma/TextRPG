@@ -13,11 +13,14 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="소스 파일\Buffering">
-      <UniqueIdentifier>{4d5078c6-8a90-48b5-99ba-c9984de85e2c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\Scene">
       <UniqueIdentifier>{33e8813c-cf41-4ef8-b621-52bd6d0e7e9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\System">
+      <UniqueIdentifier>{4ffb7335-c0dd-473a-b6f2-a7cbcb5268e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\System\Buffering">
+      <UniqueIdentifier>{4d5078c6-8a90-48b5-99ba-c9984de85e2c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -31,7 +34,7 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="DoubleBuffering.h">
-      <Filter>소스 파일\Buffering</Filter>
+      <Filter>소스 파일\System\Buffering</Filter>
     </ClInclude>
     <ClInclude Include="MainMenu.h">
       <Filter>소스 파일\Scene</Filter>
@@ -48,7 +51,7 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="DoubleBuffering.cpp">
-      <Filter>소스 파일\Buffering</Filter>
+      <Filter>소스 파일\System\Buffering</Filter>
     </ClCompile>
     <ClCompile Include="MainMenu.cpp">
       <Filter>소스 파일\Scene</Filter>

@@ -38,16 +38,7 @@ public:
 	void Flipping();
 	void Release();
 public:
-	//void GotoXY(int  _x, int _y, const char* pszStr);
 	void DrawMap();
-	//void Textcolor(int foreground, int background);
 public:
-	void ScreenView();
-	void OutPutScreenView();
-	void StateScreenView();
-	void SelectButtonScreenView();
-	void DefaultScreenView();
-
-
 
 };

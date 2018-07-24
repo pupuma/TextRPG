@@ -63,14 +63,8 @@ void TitleScene::Update()
 }
 void TitleScene::Render()
 {
-	{
-		ScreenView();
-		OutPutScreenView();
-		StateScreenView();
-		SelectButtonScreenView();
-		DefaultScreenView();
-	}
-	/*
+	
+	
 	{
 		//
 		//DoubleBuffering buffer;
@@ -102,7 +96,7 @@ void TitleScene::Render()
 		}
 
 	}
-	*/
+	
 }
 void TitleScene::Flipping()
 {
@@ -112,18 +106,7 @@ void TitleScene::Release()
 {
 	buffer->Release();
 }
-/*
-void TitleScene::GotoXY(int  _x, int _y, const char* pszStr)
-{
-	COORD pos;
-	pos.X = _x * 2;
-	pos.Y = _y;
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 
-
-	printf("%s", pszStr);
-}
-*/
 void TitleScene::DrawMap()
 {
 	//DoubleBuffering buffer;
@@ -153,71 +136,3 @@ void TitleScene::DrawMap()
 
 }
 
-/*
-void TitleScene::Textcolor(int foreground, int background)
-{
-	int color = foreground + background * 16;
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
-}
-*/
-void TitleScene::ScreenView()
-{
-
-	int i = 0;
-
-	for (i = 0 ; i < 60; i++)
-	{
-		buffer->BufferWrite( i, 30, "■");
-	}
-
-	for (i = 0; i < 50; i++)
-	{
-		buffer->BufferWrite(40, i, "■");
-
-	}
-	
-}
-
-
-void TitleScene::OutPutScreenView()
-{
-	DrawMap();
-}
-
-void TitleScene::StateScreenView()
-{
-
-}
-
-void TitleScene::SelectButtonScreenView()
-{
-	switch (iMovingCurser)
-	{
-	case 0:
-		buffer->BufferWrite(MAP_ADJ_Y + 3, MAP_Y + MAP_ADJ_Y + 5, " 새 로 하 기 ", eConsoleColor::WHITE, eConsoleColor::BLUE);
-		buffer->BufferWrite(MAP_ADJ_Y + 13, MAP_Y + MAP_ADJ_Y + 5, " 이 어 하 기 ");
-		buffer->BufferWrite(MAP_ADJ_Y + 23, MAP_Y + MAP_ADJ_Y + 5, " 끝 내 기 ");
-		break;
-	case 1:
-		buffer->BufferWrite(MAP_ADJ_Y + 3, MAP_Y + MAP_ADJ_Y + 5, " 새 로 하 기 ");
-		buffer->BufferWrite(MAP_ADJ_Y + 13, MAP_Y + MAP_ADJ_Y + 5, " 이 어 하 기 ", eConsoleColor::WHITE, eConsoleColor::BLUE);
-		buffer->BufferWrite(MAP_ADJ_Y + 23, MAP_Y + MAP_ADJ_Y + 5, " 끝 내 기 ");
-		break;
-	case 2:
-		buffer->BufferWrite(MAP_ADJ_Y + 3, MAP_Y + MAP_ADJ_Y + 5, " 새 로 하 기 ");
-		buffer->BufferWrite(MAP_ADJ_Y + 13, MAP_Y + MAP_ADJ_Y + 5, " 이 어 하 기 ");
-		buffer->BufferWrite(MAP_ADJ_Y + 23, MAP_Y + MAP_ADJ_Y + 5, " 끝 내 기 ", eConsoleColor::WHITE, eConsoleColor::BLUE);
-		break;
-	default:
-		buffer->BufferWrite(MAP_ADJ_Y + 3, MAP_Y + MAP_ADJ_Y + 5, " 새 로 하 기 ", eConsoleColor::WHITE, eConsoleColor::BLUE);
-		buffer->BufferWrite(MAP_ADJ_Y + 13, MAP_Y + MAP_ADJ_Y + 5, " 이 어 하 기 ");
-		buffer->BufferWrite(MAP_ADJ_Y + 23, MAP_Y + MAP_ADJ_Y + 5, " 끝 내 기 ");
-
-		break;
-	}
-}
-
-void TitleScene::DefaultScreenView()
-{
-
-}

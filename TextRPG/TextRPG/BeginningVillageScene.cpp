@@ -35,11 +35,7 @@ void BeginningVillageScene::Update()
 
 void BeginningVillageScene::Render()
 {
-	ScreenView();
-	OutPutScreenView();
-	StateScreenView();
-	SelectButtonScreenView();
-	DefaultScreenView();
+
 }
 
 void BeginningVillageScene::Flipping()
@@ -57,38 +53,5 @@ void BeginningVillageScene::DrawMap()
 
 }
 
-void BeginningVillageScene::ScreenView()
-{
-	int i = 0;
 
-	for (i = 0; i < 60; i++)
-	{
-		buffer->BufferWrite(i, 30, "бс");
-	}
 
-	for (i = 0; i < 50; i++)
-	{
-		buffer->BufferWrite(40, i, "бс");
-
-	}
-}
-
-void BeginningVillageScene::OutPutScreenView()
-{
-
-}
-
-void BeginningVillageScene::StateScreenView()
-{
-
-}
-
-void BeginningVillageScene::SelectButtonScreenView()
-{
-
-}
-
-void BeginningVillageScene::DefaultScreenView()
-{
-
-}

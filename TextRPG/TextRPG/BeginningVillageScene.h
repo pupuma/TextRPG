@@ -32,9 +32,5 @@ public:
 public:
 	void DrawMap();
 public:
-	void ScreenView();
-	void OutPutScreenView();
-	void StateScreenView();
-	void SelectButtonScreenView();
-	void DefaultScreenView();
+	
 };

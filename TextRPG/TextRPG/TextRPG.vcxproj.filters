@@ -22,6 +22,9 @@
     <Filter Include="소스 파일\System\Buffering">
       <UniqueIdentifier>{4d5078c6-8a90-48b5-99ba-c9984de85e2c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Character">
+      <UniqueIdentifier>{805c45bf-c339-4920-9df1-1c9d7bb133fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -36,8 +39,14 @@
     <ClInclude Include="DoubleBuffering.h">
       <Filter>소스 파일\System\Buffering</Filter>
     </ClInclude>
-    <ClInclude Include="MainMenu.h">
+    <ClInclude Include="BeginningVillageScene.h">
       <Filter>소스 파일\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>소스 파일\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>소스 파일\Character</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -53,8 +62,14 @@
     <ClCompile Include="DoubleBuffering.cpp">
       <Filter>소스 파일\System\Buffering</Filter>
     </ClCompile>
-    <ClCompile Include="MainMenu.cpp">
+    <ClCompile Include="BeginningVillageScene.cpp">
       <Filter>소스 파일\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>소스 파일\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>소스 파일\Character</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

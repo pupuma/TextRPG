@@ -20,11 +20,11 @@ void DoubleBuffering::CreateBuffer()
 {
 	CONSOLE_CURSOR_INFO cci;
 
-	COORD size = { 100 , 50 };
+	COORD size = { 120 , 50 };
 	SMALL_RECT rect;
 
 	rect.Left = 0;
-	rect.Right = 100 ;
+	rect.Right = 120 ;
 	rect.Top = 0;
 	rect.Bottom = 50;
 
@@ -76,7 +76,7 @@ void DoubleBuffering::BufferClear()
 
 	COORD Coor = { 0, 0 };
 	DWORD dw;
-	FillConsoleOutputCharacter(hBuffer[nBufferIndex], ' ', 100 * 50, Coor, &dw);
+	FillConsoleOutputCharacter(hBuffer[nBufferIndex], ' ', 120 * 50, Coor, &dw);
 }
 
 void DoubleBuffering::Release()

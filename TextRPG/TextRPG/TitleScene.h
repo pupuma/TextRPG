@@ -1,6 +1,7 @@
 #pragma once
 
 class DoubleBuffering;
+
 enum eKey
 {
 	LEFT = 75,
@@ -9,7 +10,8 @@ enum eKey
 	RIGHT = 77,
 	ENTER = 13,
 };
-class MainMenu
+
+class TitleScene
 {
 private:
 	int MAP_X;
@@ -26,8 +28,8 @@ private:
 	DoubleBuffering* buffer;
 
 public:
-	MainMenu();
-	~MainMenu();
+	TitleScene();
+	~TitleScene();
 
 public:
 	void Clear();
@@ -35,9 +37,17 @@ public:
 	void Render();
 	void Flipping();
 	void Release();
-	void GotoXY(int  _x, int _y, const char* pszStr);
+public:
+	//void GotoXY(int  _x, int _y, const char* pszStr);
 	void DrawMap();
-	void Textcolor(int foreground, int background);
+	//void Textcolor(int foreground, int background);
+public:
+	void ScreenView();
+	void OutPutScreenView();
+	void StateScreenView();
+	void SelectButtonScreenView();
+	void DefaultScreenView();
+
 
 
 };

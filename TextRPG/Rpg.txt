@@ -96,4 +96,55 @@ Clear() -> Render -> Flipping -> Update
 
 공격 -> 체력감소 -> 감소된 객체에서 공격 -> 
 
+-----------------------------------------------------------------------------
+화면뷰 
+
+	// OUTPUT_SCREEN_VIEW
+	const int OUTPUT_SCREEN_VIEW_MIN_X = 0;
+	const int OUTPUT_SCREEN_VIEW_MIN_Y = 0;
+	const int OUTPUT_SCREEN_VIEW_MAX_X = 80;
+	const int OUTPUT_SCREEN_VIEW_MAX_Y = 30;
+
+	// PLATER STATE _SCREEN_VIEW
+	const int STATE_SCREEN_VIEW_MIN_X = 80;
+	const int STATE_SCREEN_VIEW_MIN_Y = 0;
+	const int STATE_SCREEN_VIEW_MAX_X = 80;
+	const int STATE_SCREEN_VIEW_MAX_Y = 0;
+
+	// PLAYER SELECT_BUTTON_SCREEN_VIEW
+	const int SELECT_BUTTON_SCREEN_VIEW_MIN_X = 0;
+	const int SELECT_BUTTON_SCREEN_VIEW_MIN_Y = 30;
+	const int SELECT_BUTTON_SCREEN_VIEW_MAX_X = 0;
+	const int SELECT_BUTTON_SCREEN_VIEW_MAX_Y = 30;
+
+	// DEFUALT_SCREEN_VIEW
+	const int DEFUALT_SCREEN_VIEW_MIN_X = 80;
+	const int DEFUALT_SCREEN_VIEW_MIN_Y = 30;
+	const int DEFUALT_SCREEN_VIEW_MAX_X = 90;
+	const int DEFUALT_SCREEN_VIEW_MAX_Y = 30;
+
+ㅁ인 경우는 화면에서 2배로 생성...
+
+현재 화면에 버퍼를 2배로 지정해서 글씨가 간격이 ㅁㅁㅅㅁㅁㅅ 이런식이다. 
+
+---------------------------------------------------------------------------------
+CharacterCreate
+
+(출)캐릭터 이름을 정해주세요 : 
+(입) 
+
+(출) 직업을 선택 해 주세요 : 
+
+전사 궁수
+마법사 나가기 
+
+게임이 시작 됩니다. 
+
+스토리 
+
+-> 씬 이동
+
+시작의 마을 
+
+상 하 좌 우 x
 

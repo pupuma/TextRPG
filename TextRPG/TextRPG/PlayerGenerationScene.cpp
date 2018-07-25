@@ -29,20 +29,14 @@ void PlayerGenerationScene::Clear()
 
 void PlayerGenerationScene::Update()
 {
-	
+	buffer->BufferWrite(2, 1, "캐릭터 이름을 입력해 주세요 :");
+	std::cin >> chText;
 }
 
 void PlayerGenerationScene::Render()
 {
-	buffer->BufferWrite(2, 1, "캐릭터 이름을 입력해 주세요 :");
-	isGamePlayerName = true;
-	if (true == isGamePlayerName)
-	{
-		std::cin >> chText;
 
-		player->SetCharacterName(chText);
-	}
-	//buffer->BufferWrite(2, 2, "캐릭터 이름은 입니다.");
+	buffer->BufferWrite(2, 2, "캐릭터 이름은 입니다.");
 }
 
 void PlayerGenerationScene::Flipping()
@@ -54,5 +48,4 @@ void PlayerGenerationScene::Flipping()
 void PlayerGenerationScene::Release()
 {
 	buffer->Release();
-
 }

@@ -35,7 +35,6 @@ void PlayerGenerationScene::Update()
 //	}
 	{
 		// 다음 문자열을 업데이트 한다. 
-		if(nextLine ==)
 	}
 	
 }

@@ -25,6 +25,9 @@
     <Filter Include="소스 파일\Character">
       <UniqueIdentifier>{805c45bf-c339-4920-9df1-1c9d7bb133fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\String">
+      <UniqueIdentifier>{eb7ce55a-d396-4f54-9677-7054d0edcc84}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -51,6 +54,12 @@
     <ClInclude Include="PlayerGenerationScene.h">
       <Filter>소스 파일\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="sString.h">
+      <Filter>소스 파일\String</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>소스 파일\System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -76,6 +85,12 @@
     </ClCompile>
     <ClCompile Include="PlayerGenerationScene.cpp">
       <Filter>소스 파일\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="sString.cpp">
+      <Filter>소스 파일\String</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>소스 파일\System</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

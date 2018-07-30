@@ -1,6 +1,6 @@
 #pragma once
 
-class DoubleBuffering;
+//class DoubleBuffering;
 class Character;
 
 class PlayerGenerationScene
@@ -10,7 +10,7 @@ private:
 	char chText[256];
 
 private:
-	DoubleBuffering* buffer;
+	//DoubleBuffering* buffer;
 	Character* player;
 public:
 	PlayerGenerationScene();

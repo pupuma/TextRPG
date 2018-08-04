@@ -1,138 +1,63 @@
 #include "TitleScene.h"
 
-#include <windows.h>
-#include <stdio.h>
+#include <Windows.h>
+#include <iostream>
 #include <conio.h>
-
-#include "DoubleBuffering.h"
+#include "SceneManager.h"
 
 
 TitleScene::TitleScene()
 {
-	MAP_X = 30;
-	MAP_Y = 30;
-	MAP_ADJ_X = 0;
-	MAP_ADJ_Y = 0;
-	//sztitle[15] = { "Hello World!!" };
-
-	iMovingCurser = 0;
-
-	iKey = 0;
-	nDir = 1;
-	x = (MAP_X - 5);
-	buffer = new DoubleBuffering();
-	buffer->CreateBuffer();
-
+	
 }
 
 TitleScene::~TitleScene()
 {
 
 }
-void TitleScene::Clear()
+
+void TitleScene::Init(int _index)
 {
-	buffer->BufferClear();
 }
+
 void TitleScene::Update()
 {
-	//buffer->BufferClear();
-	//buffer->Flipping();
-	iKey = _getch();
-
-	switch (iKey)
+	int iPlayerSelect = 0;
+	bool isStart = false;
+	while (false == isStart)
 	{
-	case eKey::LEFT:
-		iMovingCurser--;
-		break;
-	case eKey::RIGHT:
-		iMovingCurser++;
-		break;
-	case eKey::ENTER:
-		break;
-	}
+		std::cout << "======================================" << std::endl;
+		std::cout << "1. 새로하기 : " << std::endl;
+		std::cout << "2. 이어하기 : " << std::endl;
+		std::cout << "3. 끝내기 : " << std::endl;
+		std::cout << "======================================" << std::endl;
 
-	if (0 > iMovingCurser)
-	{
-		iMovingCurser = 0;
-	}
+		std::cout << "(1 ~ 3) 선택해 주세요 :  ";
+		std::cin >> iPlayerSelect;
 
-	if (2 < iMovingCurser)
-	{
-		iMovingCurser = 2;
-	}
-}
-void TitleScene::Render()
-{
-	
-	
-	{
-		//
-		//DoubleBuffering buffer;
-		DrawMap();
-
-		switch (iMovingCurser)
+		switch (iPlayerSelect)
 		{
-		case 0:
-			buffer->BufferWrite(MAP_ADJ_Y + 3, MAP_Y + MAP_ADJ_Y + 5, " 새 로 하 기 ", eConsoleColor::WHITE, eConsoleColor::BLUE);
-			buffer->BufferWrite(MAP_ADJ_Y + 13, MAP_Y + MAP_ADJ_Y + 5, " 이 어 하 기 ");
-			buffer->BufferWrite(MAP_ADJ_Y + 23, MAP_Y + MAP_ADJ_Y + 5, " 끝 내 기 ");
-			break;
 		case 1:
-			buffer->BufferWrite(MAP_ADJ_Y + 3, MAP_Y + MAP_ADJ_Y + 5, " 새 로 하 기 ");
-			buffer->BufferWrite(MAP_ADJ_Y + 13, MAP_Y + MAP_ADJ_Y + 5, " 이 어 하 기 ", eConsoleColor::WHITE, eConsoleColor::BLUE);
-			buffer->BufferWrite(MAP_ADJ_Y + 23, MAP_Y + MAP_ADJ_Y + 5, " 끝 내 기 ");
+			SceneManager::GetInstance()->ChangeScene(eScene::SCENE_CREATECHACTER, 0);
+			isStart = true;
 			break;
 		case 2:
-			buffer->BufferWrite(MAP_ADJ_Y + 3, MAP_Y + MAP_ADJ_Y + 5, " 새 로 하 기 ");
-			buffer->BufferWrite(MAP_ADJ_Y + 13, MAP_Y + MAP_ADJ_Y + 5, " 이 어 하 기 ");
-			buffer->BufferWrite(MAP_ADJ_Y + 23, MAP_Y + MAP_ADJ_Y + 5, " 끝 내 기 ", eConsoleColor::WHITE, eConsoleColor::BLUE);
+			isStart = true;
+			break;
+		case 3:
 			break;
 		default:
-			buffer->BufferWrite(MAP_ADJ_Y + 3, MAP_Y + MAP_ADJ_Y + 5, " 새 로 하 기 ", eConsoleColor::WHITE, eConsoleColor::BLUE);
-			buffer->BufferWrite(MAP_ADJ_Y + 13, MAP_Y + MAP_ADJ_Y + 5, " 이 어 하 기 ");
-			buffer->BufferWrite(MAP_ADJ_Y + 23, MAP_Y + MAP_ADJ_Y + 5, " 끝 내 기 ");
-
+			std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요 ! " << std::endl;
+			_getch();
 			break;
 		}
-
+		
+		system("cls");
 	}
-	
 }
-void TitleScene::Flipping()
+
+void TitleScene::GotoXY(int x, int y)
 {
-	buffer->Flipping();
+	COORD pos = { x ,y };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
-void TitleScene::Release()
-{
-	buffer->Release();
-}
-
-void TitleScene::DrawMap()
-{
-	//DoubleBuffering buffer;
-
-	int i = 0;
-	for (i = 0; i < MAP_X; i++)
-	{
-		//GotoXY(MAP_ADJ_X + i, MAP_ADJ_Y, "■");
-		buffer->BufferWrite(MAP_ADJ_X + i, MAP_ADJ_Y, "■");
-	}
-
-	for (i = (MAP_ADJ_Y + 1); i < (MAP_ADJ_Y + MAP_Y - 1); i++)
-	{
-		//GotoXY(MAP_ADJ_X, i, "■");
-		buffer->BufferWrite(MAP_ADJ_X, i, "■");
-		//GotoXY((MAP_ADJ_X + MAP_X - 1), i, "■");
-		buffer->BufferWrite((MAP_ADJ_X + MAP_X - 1), i, "■");
-	}
-
-	for (i = 0; i < MAP_X; i++)
-	{
-		//GotoXY((MAP_ADJ_X + i), (MAP_ADJ_Y + MAP_Y - 1), "■");.
-
-
-		buffer->BufferWrite((MAP_ADJ_X + i), (MAP_ADJ_Y + MAP_Y - 1), "■");
-	}
-
-}
-

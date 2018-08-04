@@ -41,5 +41,5 @@ public:
 	void BufferClear();
 	void Release();
 	
-
+	void GotoXY(int x, int y);
 };

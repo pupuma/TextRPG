@@ -1,25 +1,26 @@
 #pragma once
+#include "Scene.h"
+#include "SceneManager.h"
 
-//class DoubleBuffering;
-class Character;
-
+class sParagraph;
+class ParsingSystem;
 class PlayerGenerationScene
+	: public Scene
 {
 private:
-	bool isGamePlayerName;
-	char chText[256];
-
-private:
-	//DoubleBuffering* buffer;
-	Character* player;
+	sParagraph* paragraphList;
+	ParsingSystem* parser;
+	int pargraphCount;
+	int iBranch;
+	bool isQuit;
 public:
 	PlayerGenerationScene();
 	~PlayerGenerationScene();
 public:
-	void Clear();
+	void Init(int _index);
 	void Update();
-	void Render();
-	void Flipping();
-	void Release();
+	void GotoXY(int x, int y);
+
+
 };
 

@@ -2,7 +2,6 @@
 
 #include <windows.h>
 
-#include "MainGame.h"
 
 static int nBufferIndex;
 static HANDLE hBuffer[2];
@@ -20,13 +19,13 @@ void DoubleBuffering::CreateBuffer()
 {
 	CONSOLE_CURSOR_INFO cci;
 
-	COORD size = { 120 , 50 };
+	COORD size = { 60 , 40 };
 	SMALL_RECT rect;
 
 	rect.Left = 0;
-	rect.Right = 120 ;
+	rect.Right = 60 ;
 	rect.Top = 0;
-	rect.Bottom = 50;
+	rect.Bottom = 40;
 
 	hBuffer[0] = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
 	SetConsoleScreenBufferSize(hBuffer[0], size);
@@ -76,11 +75,19 @@ void DoubleBuffering::BufferClear()
 
 	COORD Coor = { 0, 0 };
 	DWORD dw;
-	FillConsoleOutputCharacter(hBuffer[nBufferIndex], ' ', 120 * 50, Coor, &dw);
+	FillConsoleOutputCharacter(hBuffer[nBufferIndex], ' ', 60 * 40, Coor, &dw);
 }
 
 void DoubleBuffering::Release()
 {
+	hBuffer[0] = 0;
+	hBuffer[1] = 0;
 	CloseHandle(hBuffer[0]);
 	CloseHandle(hBuffer[1]);
+}
+
+void DoubleBuffering::GotoXY(int x, int y)
+{
+	COORD pos = { x ,y };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }

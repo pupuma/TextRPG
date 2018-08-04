@@ -9,13 +9,15 @@ Scene::Scene()
 
 Scene::~Scene()
 {
+
 }
 
-int Scene::Progress(int _index)
+void Scene::SetSceneType(eScene _type)
 {
-	while (1)
-	{
+	sceneType = _type;
+}
 
-	}
-	return 0;
+eScene Scene::GetSceneType()
+{
+	return sceneType;
 }

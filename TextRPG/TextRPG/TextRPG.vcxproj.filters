@@ -36,9 +36,6 @@
     <ClInclude Include="targetver.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="MainGame.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="DoubleBuffering.h">
       <Filter>소스 파일\System\Buffering</Filter>
     </ClInclude>
@@ -57,11 +54,32 @@
     <ClInclude Include="sString.h">
       <Filter>소스 파일\String</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceManager.h">
-      <Filter>소스 파일\System</Filter>
-    </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>소스 파일\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>소스 파일\System</Filter>
+    </ClInclude>
+    <ClInclude Include="ParsingSystem.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="StringText.h">
+      <Filter>소스 파일\String</Filter>
+    </ClInclude>
+    <ClInclude Include="StringQuit.h">
+      <Filter>소스 파일\String</Filter>
+    </ClInclude>
+    <ClInclude Include="sParagraph.h">
+      <Filter>소스 파일\String</Filter>
+    </ClInclude>
+    <ClInclude Include="StringBranch.h">
+      <Filter>소스 파일\String</Filter>
+    </ClInclude>
+    <ClInclude Include="StringName.h">
+      <Filter>소스 파일\String</Filter>
+    </ClInclude>
+    <ClInclude Include="StringNext.h">
+      <Filter>소스 파일\String</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -69,9 +87,6 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="TextRPG.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="MainGame.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="DoubleBuffering.cpp">
@@ -92,11 +107,32 @@
     <ClCompile Include="sString.cpp">
       <Filter>소스 파일\String</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceManager.cpp">
-      <Filter>소스 파일\System</Filter>
-    </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>소스 파일\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>소스 파일\System</Filter>
+    </ClCompile>
+    <ClCompile Include="ParsingSystem.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="StringText.cpp">
+      <Filter>소스 파일\String</Filter>
+    </ClCompile>
+    <ClCompile Include="StringQuit.cpp">
+      <Filter>소스 파일\String</Filter>
+    </ClCompile>
+    <ClCompile Include="sParagraph.cpp">
+      <Filter>소스 파일\String</Filter>
+    </ClCompile>
+    <ClCompile Include="StringBranch.cpp">
+      <Filter>소스 파일\String</Filter>
+    </ClCompile>
+    <ClCompile Include="StringName.cpp">
+      <Filter>소스 파일\String</Filter>
+    </ClCompile>
+    <ClCompile Include="StringNext.cpp">
+      <Filter>소스 파일\String</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,10 +1,19 @@
 #pragma once
+#include "SceneManager.h"
+
 class Scene
 {
+protected:
+	eScene sceneType;
+
 public:
 	Scene();
 	~Scene();
 public:
-	int Progress(int _index);
+	virtual void Init(int _index) = 0;
+	virtual void Update() = 0;
+public:
+	void SetSceneType(eScene _type);
+	eScene GetSceneType();
 };
 

@@ -1,59 +1,48 @@
 #include "PlayerGenerationScene.h"
 
 #include <iostream>
+#include <Windows.h>
 
+#include "sParagraph.h"
+#include "ParsingSystem.h"
 #include "Character.h"
+#include "SceneManager.h"
+
 
 
 PlayerGenerationScene::PlayerGenerationScene()
 {
-	isGamePlayerName = false;
-
-	player = new Character();
-	//buffer = new DoubleBuffering();
-	//buffer->CreateBuffer();
-
+	parser = new ParsingSystem();
+	iBranch = 0;
+	isQuit = false;
 }
-
 
 PlayerGenerationScene::~PlayerGenerationScene()
 {
 
 }
 
-void PlayerGenerationScene::Clear()
+void PlayerGenerationScene::Init(int _index)
 {
-	//buffer->BufferClear();
-
+	pargraphCount = 0;
+	paragraphList = parser->CSVParsing("PlayerGenerationScene.csv", &pargraphCount);
+	SetSceneType(eScene::SCENE_CREATECHACTER);
 }
 
 void PlayerGenerationScene::Update()
 {
-//	{
-		//buffer->BufferWrite(2, 1, "캐릭터 이름을 입력해 주세요 :");
-		//std::cin >> chText;
-//	}
+	while (false == isQuit)
 	{
-		// 다음 문자열을 업데이트 한다. 
-	}
-	
-}
-
-void PlayerGenerationScene::Render()
-{
-	//buffer->BufferWrite(2, 2, "캐릭터 이름은 입니다.");
-	
-	{
-		//출력 한다. 
+		if (iBranch < pargraphCount)
+		{
+			paragraphList[iBranch].Process(&iBranch,sceneType ,&isQuit);
+		}
 	}
 }
 
-void PlayerGenerationScene::Flipping()
+void PlayerGenerationScene::GotoXY(int x, int y)
 {
-	//buffer->Flipping();
+	COORD pos = { x ,y };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
-void PlayerGenerationScene::Release()
-{
-	//buffer->Release();
-}

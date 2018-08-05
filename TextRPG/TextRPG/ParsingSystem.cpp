@@ -13,6 +13,8 @@
 #include "StringBranch.h"
 #include "StringNext.h"
 #include "StringQuit.h"
+#include "Item.h"
+#include "Store.h"
 
 
 ParsingSystem::ParsingSystem()
@@ -143,4 +145,103 @@ sParagraph* ParsingSystem::CSVParsing(const char* fileName, int* paragraphCount)
 	}
 
 	return paragraphList;
+}
+
+void ParsingSystem::ItemCSVParsing(const char * fileName, Item* _item, Store* _store)
+{
+	std::ifstream inFile(fileName);
+
+	std::queue<std::string> q_data;
+	std::string sBuffer;
+	std::string sRecord;
+	std::string textString;
+	std::string sItemName;
+	int iIndex = 0;
+	int iTextNum = 0;
+	int iItemCode = 0;
+	eItemType itemType;
+	int iItemPrice = 0;
+
+	//int iCount = 0;
+
+	if (!inFile.is_open())
+	{
+		std::cout << "File is Not Read" << std::endl;
+	}
+
+	// File Read
+	while (getline(inFile, sBuffer))
+	{
+		q_data.push(sBuffer);
+		//std::cout << sBuffer << std::endl;
+	}
+	//
+	inFile.close();
+
+	q_data.pop();
+
+	while (!q_data.empty())
+	{
+		sRecord = q_data.front().substr(0, q_data.front().size());
+		//
+		iIndex = sRecord.find(",");
+		textString = sRecord.substr(0, iIndex);
+		iTextNum = stoi(textString);
+		sRecord = sRecord.substr(iIndex + 1, sRecord.size());
+
+		//
+		iIndex = sRecord.find(",");
+		textString = sRecord.substr(0, iIndex);
+		iItemCode = stoi(textString);
+		sRecord = sRecord.substr(iIndex + 1, sRecord.size());
+
+		//
+		iIndex = sRecord.find(",");
+		textString = sRecord.substr(0, iIndex);
+		itemType = (eItemType)stoi(textString);
+		sRecord = sRecord.substr(iIndex + 1, sRecord.size());
+
+		//
+		iIndex = sRecord.find(",");
+		textString = sRecord.substr(0, iIndex);
+		sItemName = textString;
+		sRecord = sRecord.substr(iIndex + 1, sRecord.size());
+
+		//
+		iIndex = sRecord.find(",");
+		textString = sRecord.substr(0, iIndex);
+		iItemPrice = stoi(textString);
+		sRecord = sRecord.substr(iIndex + 1, sRecord.size());
+
+		_item->SetItemMap(iTextNum, iItemCode, itemType, sItemName, iItemPrice);
+		
+		if (_store->GetStoreType() == eStoreType::AMS)
+		{
+			if (itemType == eItemType::WEAPON ||
+				itemType == eItemType::SHIELD)
+			{
+				_store->ItemInput(_item);
+			}
+		}
+		else if (_store->GetStoreType() == eStoreType::AMS)
+		{
+			if (itemType == eItemType::WEAPON ||
+				itemType == eItemType::SHIELD)
+			{
+				_store->ItemInput(_item);
+			}
+		}
+		else if (_store->GetStoreType() == eStoreType::AMS)
+		{
+			if (itemType == eItemType::WEAPON ||
+				itemType == eItemType::SHIELD)
+			{
+				_store->ItemInput(_item);
+			}
+		}
+
+		q_data.pop();
+	}
+
+
 }

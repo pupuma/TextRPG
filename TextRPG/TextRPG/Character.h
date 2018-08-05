@@ -1,13 +1,19 @@
 #pragma once
+
+
 class Character
 {
 private:
-	char chName[256];
+	int iHp;
+	int iMp;
+	int iAttackPoint;
+	int iGold;
 public:
 	Character();
 	~Character();
 public:
-	void SetCharacterName(const char* _name);
-
+	virtual void Init(int _number) = 0;
+	virtual int GetGold() = 0;
+	virtual void SetGold(int _gold) = 0;
 };
 

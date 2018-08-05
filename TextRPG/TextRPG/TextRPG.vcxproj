@@ -147,15 +147,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ArmsStore.h" />
     <ClInclude Include="BeginningVillageScene.h" />
     <ClInclude Include="Character.h" />
+    <ClInclude Include="DefensiveStore.h" />
+    <ClInclude Include="GameSystem.h" />
+    <ClInclude Include="GeneralStore.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="ParsingSystem.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerGenerationScene.h" />
     <ClInclude Include="DoubleBuffering.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="sParagraph.h" />
     <ClInclude Include="sString.h" />
+    <ClInclude Include="Store.h" />
     <ClInclude Include="StringBranch.h" />
     <ClInclude Include="StringName.h" />
     <ClInclude Include="StringNext.h" />
@@ -166,15 +173,22 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ArmsStore.cpp" />
     <ClCompile Include="BeginningVillageScene.cpp" />
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="DefensiveStore.cpp" />
+    <ClCompile Include="GameSystem.cpp" />
+    <ClCompile Include="GeneralStore.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="ParsingSystem.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerGenerationScene.cpp" />
     <ClCompile Include="DoubleBuffering.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="sParagraph.cpp" />
     <ClCompile Include="sString.cpp" />
+    <ClCompile Include="Store.cpp" />
     <ClCompile Include="StringBranch.cpp" />
     <ClCompile Include="StringName.cpp" />
     <ClCompile Include="StringNext.cpp" />

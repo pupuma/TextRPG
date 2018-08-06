@@ -14,6 +14,7 @@
 #include "Character.h"
 
 
+
 BeginningVillageScene::BeginningVillageScene()
 {
 	iRand = 0;
@@ -58,8 +59,10 @@ void BeginningVillageScene::Update()
 		case 3:
 			break;
 		case 4:
+			SceneManager::GetInstance()->ChangeScene(eScene::SCENE_DUNGEON, 0);
 			break;
 		case 5:
+			_character->PlayerState();
 			break;
 		case 6:
 			break;
@@ -172,3 +175,4 @@ void BeginningVillageScene::InitStore()
 	
 	store->EnterStore(_character);
 }
+ 

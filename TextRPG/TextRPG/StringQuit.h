@@ -8,5 +8,7 @@ class StringQuit
 public:
 	StringQuit();
 	~StringQuit();
+public:
+	void Process(int* nextBranch, eScene type, bool* isQuit);
 };
 

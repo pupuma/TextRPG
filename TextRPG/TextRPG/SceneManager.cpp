@@ -3,6 +3,7 @@
 #include "TitleScene.h"
 #include "PlayerGenerationScene.h"
 #include "BeginningVillageScene.h"
+#include "DungeonScene.h"
 
 
 SceneManager* SceneManager::_instance = 0;
@@ -41,6 +42,11 @@ void SceneManager::ChangeScene(eScene sceneType, int _index)
 	case eScene::SCENE_VILLAGE:
 		_scene = new BeginningVillageScene();
 		_scene->Init(_index);
+		break;
+	case eScene::SCENE_DUNGEON:
+		_scene = new DungeonScene();
+		_scene->Init(_index);
+		break;
 	}
 }
 

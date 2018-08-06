@@ -23,6 +23,7 @@ void StringBranch::Process(int* nextBranch, eScene type, bool * isQuit)
 		std::cout << "선택한 번호는 ? : ";
 
 		std::cin >> selectBranch;
+
 		if (type == eScene::SCENE_CREATECHACTER)
 		{
 			if (2 == selectBranch)
@@ -64,6 +65,40 @@ void StringBranch::Process(int* nextBranch, eScene type, bool * isQuit)
 			{
 				*nextBranch = selectBranch;
 				break;
+			}
+			else
+			{
+				std::cout << "잘못된 범위를 입력했습니다. 다시 입력해 주세요 !!" << std::endl;
+				std::cin.clear();
+				std::cin.ignore();
+				continue;
+			}
+		}
+		else if (type == eScene::SCENE_DUNGEON)
+		{
+			if (1 == selectBranch)
+			{
+				*nextBranch = selectBranch;
+				break;
+
+			}
+			else if (2 == selectBranch)
+			{
+				*nextBranch = selectBranch;
+				break;
+
+			}
+			else if (3 == selectBranch)
+			{
+				*isQuit = true;
+				break;
+			}
+			else if (std::cin.fail())
+			{
+				std::cout << "잘못된 범위를 입력했습니다. 다시 입력해 주세요 !!" << std::endl;
+				std::cin.clear();
+				std::cin.ignore();
+				continue;
 			}
 			else
 			{

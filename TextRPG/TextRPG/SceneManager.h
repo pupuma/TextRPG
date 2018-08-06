@@ -6,6 +6,7 @@ enum eScene
 	SCENE_TITLE,
 	SCENE_CREATECHACTER,
 	SCENE_VILLAGE,
+	SCENE_DUNGEON,
 };
 class SceneManager
 {

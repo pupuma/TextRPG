@@ -43,6 +43,7 @@ void StringNext::Process(int* nextBranch, eScene type, bool* isQuit)
 			{
 			case eScene::SCENE_CREATECHACTER:
 				*nextBranch = 1;
+				system("cls");
 				break;
 			case eScene::SCENE_VILLAGE:
 				*nextBranch = 1;

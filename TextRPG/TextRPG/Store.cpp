@@ -5,7 +5,7 @@
 
 Store::Store()
 {
-	m_StoreType = eStoreType::NONE;
+	m_StoreType = eStoreType::DEFAULT;
 }
 
 

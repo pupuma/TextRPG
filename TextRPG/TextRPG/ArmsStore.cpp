@@ -2,9 +2,7 @@
 #include "ParsingSystem.h"
 #include "Item.h"
 #include "Character.h"
-#include <iomanip>
-#include <iostream>
-#include <conio.h>
+
 ArmsStore::ArmsStore()
 {
 	parser = new ParsingSystem();
@@ -21,10 +19,6 @@ ArmsStore::~ArmsStore()
 void ArmsStore::ItemInit()
 {
 	parser->ItemCSVParsing("ItemList.csv", _item, this);
-}
-
-void ArmsStore::LeaveStore()
-{
 }
 
 void ArmsStore::ItemInput(Item* item)
@@ -46,6 +40,89 @@ void ArmsStore::ItemPrint(int* iItemIndex)
 
 	*iItemIndex = i;
 }
+void ArmsStore::ItemSale(Character *_character, bool * _isQuit)
+{
+	system("cls");
+	_character->InventoryView();
+
+	while (1)
+	{
+		if (0 == _character->GetInventorySize())
+		{
+			std::cout << "판매 할 수 있는 아이템이 없습니다..." << std::endl;
+			system("cls");
+			break;
+		}
+		else
+		{
+			SelectSaleItem(_character);
+			break;
+		}
+	}
+}
+void ArmsStore::SelectSaleItem(Character* _character)
+{
+	bool isQuit = false;
+	int iPlayerSelect =0;
+	int iSaleGold = 0;
+	int iPlayerGold = _character->GetGold();
+	char chText;
+	while (false == isQuit)
+	{
+		std::cout << "어느 아이템을 판매하겠습니까?? " << std::endl;
+		std::cout << "번호 ? ";
+		std::cin >> iPlayerSelect;
+		
+		if (0 == _character->GetInventorySize())
+		{
+			std::cout << "인벤토리에 아무것도 없습니다..."<<std::endl;
+			system("cls");
+			isQuit = true;
+			break;
+		}
+
+		if (0 == iPlayerSelect || iPlayerSelect > _character->GetInventorySize())
+		{
+			std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요 " << std::endl;
+			std::cin.clear();
+			std::cin.ignore();
+			continue;
+		}
+		else
+		{
+			std::cout << "판매 했습니다.!" << std::endl;
+			iSaleGold =_character->DeleteInventoryItem(iPlayerSelect);
+			iPlayerGold = iPlayerGold + iSaleGold;
+			_character->SetGold(iPlayerGold);
+		}
+
+		while (1)
+		{
+			std::cout << "계속 하시겠습니까? ( y / n ) :";
+			std::cin >> chText;
+			
+			if ('y' == chText || 'Y' == chText)
+			{
+				break;
+			}
+			else if ('n' == chText || 'N' == chText)
+			{
+				isQuit = true;
+				break;
+			}
+			else
+			{
+				std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요 " << std::endl;
+				std::cin.clear();
+				std::cin.ignore();
+				continue;
+			}
+		}
+		
+
+	}
+}
+
 void ArmsStore::EnterStore(Character* _character)
 {
 	system("cls");
@@ -68,7 +145,7 @@ void ArmsStore::EnterStore(Character* _character)
 		}
 		else if (2 == iSelectNumber)
 		{
-
+			ItemSale(_character, &isQuit);
 		}
 		else if( 3 == iSelectNumber)
 		{
@@ -116,6 +193,7 @@ void ArmsStore::PurchaseStore(Character* _character, bool* _isQuit,int iItemInde
 					int iGold = _character->GetGold();
 					iGold = iGold - it->iPrice;
 					_character->SetGold(iGold);
+					_character->AddInventory(it);
 					_getch();
 					break;
 				}
@@ -158,12 +236,10 @@ void ArmsStore::PurchaseStore(Character* _character, bool* _isQuit,int iItemInde
 				std::cin.clear();
 				std::cin.ignore();
 				continue;
-
 			}
 		}
 		
 	}
-	
 	system("cls");
 
 	

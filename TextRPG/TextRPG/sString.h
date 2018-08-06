@@ -8,7 +8,8 @@ enum eStringType
 	NAME,
 	BRANCH,
 	NEXT,
-	QUIT
+	QUIT,
+	RANDOM = 7,
 };
 
 

@@ -3,6 +3,9 @@
 #include "ParsingSystem.h"
 #include <map>
 #include <list>
+#include <iomanip>
+#include <iostream>
+#include <conio.h>
 
 class Character;
 
@@ -11,7 +14,7 @@ enum eStoreType
 	POTION,
 	AMS,
 	DEFENSIVE,
-	NONE,
+	DEFAULT,
 };
 
 class Store

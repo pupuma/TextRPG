@@ -34,7 +34,7 @@ void StringRandom::MonsterEvent(int iRand, Character* _player,int* nextBranch, b
 	//srand((unsigned)time(NULL));
 	//iRand = rand() % 10;
 	// 몬스터를 만나다. 
-	GameSystem::GetInstance()->Battle(_player, _monster,iRand, nextBranch, isQuit);
+	GameSystem::GetInstance()->CollisionEvent(_player, _monster,iRand, nextBranch, isQuit);
 	
 
 }

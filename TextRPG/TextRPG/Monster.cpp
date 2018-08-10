@@ -25,7 +25,8 @@ void Monster::Init(int _number)
 {
 }
 
-void Monster::MonsterInit(int _number, Character * _player)
+
+void Monster::Init(int _number, Character * _player)
 {
 	switch (_number)
 	{

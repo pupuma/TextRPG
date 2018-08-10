@@ -236,7 +236,7 @@ void GameSystem::FindinventoryInfoView(std::list<std::pair<std::string, int>>* v
 	system("cls");
 }
 
-void GameSystem::Battle(Character * _player, Character* _monster, int _rand, int* nextBranch, bool* isQuit)
+void GameSystem::CollisionEvent(Character * _player, Character* _monster, int _rand, int* nextBranch, bool* isQuit)
 {
 	if (0 == _rand)
 	{
@@ -244,24 +244,32 @@ void GameSystem::Battle(Character * _player, Character* _monster, int _rand, int
 		return;
 	}
 	
-	std::cout << _monster->GetName() << " 을 만났습니다! ";
+	std::cout << _monster->GetName() << " 을 만났습니다! " << std::endl;
+	std::cout << "================= Monster ================" << std::endl;
+	std::cout << "이름 : " << _monster->GetName() << std::endl;
+	std::cout << "체력 : " << _monster->GetHp() << std::endl;
+	std::cout << "공격력 : " << _monster->GetAttackPoint() << std::endl;
+	std::cout << "방어력 : " << _monster->GetDefensePoint() << std::endl;
+	std::cout << "====================================" << std::endl;
+	std::cout << "------------------------------------------" << std::endl;
+	std::cout << "================= Plaer ================" << std::endl;
+	std::cout << "====================================" << std::endl;
+	std::cout << "레벨 : " << _player->GetLv() << std::endl;
+	std::cout << "체력 : " << _player->GetHp() << std::endl;
+	std::cout << "공격력 : " << _player->GetAttackPoint() << std::endl;
+	std::cout << "방어력 : " << _player->GetDefensePoint() << std::endl;
+	std::cout << "====================================" << std::endl;
 
 	char chText;
 	while (1)
 	{
-		std::cout << _monster->GetName() << " 와 전투를 하시겠습니까? " << std::endl;
+		std::cout << _monster->GetName() << " 와 전투를 하시겠습니까? ( Y / N )  " << std::endl;
 		std::cin >> chText;
 		if ('Y ' == chText || 'Y' == chText)
 		{
-			std::cout << "전투가 시작되었습니다!" << std::endl;
-			if (_monster->GetAttackPoint() > _player->GetAttackPoint())
-			{
-				
-			}
-			else
-			{
-
-			}
+			// 전투
+			Battle(_player, _monster);
+			
 		}
 		else if ('n' == chText || 'N' == chText)
 		{

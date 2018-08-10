@@ -62,7 +62,7 @@ public:
 	void InitItemInfo();
 	void FindinventoryInfoView(std::list<std::pair< std::string, int>>* vInventory, int _iSelect, sEquipment* _eq);
 public:
-	void Battle(Character* _player, Character* _monster, int _rand, int* nextBranch, bool* isQuit);
+	void CollisionEvent(Character* _player, Character* _monster, int _rand, int* nextBranch, bool* isQuit);
 
 };
 

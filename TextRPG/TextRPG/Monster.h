@@ -15,7 +15,7 @@ public:
 	void SetName(std::string _name);
 	std::string GetName() { return sMonsterName; }
 	void Init(int _number);
-	void MonsterInit(int _number, Character* _player);
+	void Init(int _number, Character* _player);
 	int GetGold();
 	void SetGold(int _gold);
 	void Update();

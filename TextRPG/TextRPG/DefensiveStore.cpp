@@ -69,7 +69,7 @@ void DefensiveStore::SelectSaleItem(Character* _character)
 	while (false == isQuit)
 	{
 		std::cout << "어느 아이템을 판매하겠습니까?? " << std::endl;
-		std::cout << "번호 ? ";
+		std::cout << "번호 ( 0 : 나가기 )  ? ";
 		std::cin >> iPlayerSelect;
 
 		if (0 == _character->GetInventorySize())
@@ -80,8 +80,12 @@ void DefensiveStore::SelectSaleItem(Character* _character)
 			break;
 		}
 
-
-		if (0 == iPlayerSelect || iPlayerSelect > _character->GetInventorySize())
+		if (0 == iPlayerSelect)
+		{
+			isQuit = true;
+			break;
+		}
+		if (iPlayerSelect > _character->GetInventorySize())
 		{
 			std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요 " << std::endl;
 			GameSystem::GetInstance()->StdCinClear();
@@ -121,6 +125,8 @@ void DefensiveStore::SelectSaleItem(Character* _character)
 
 
 	}
+	system("cls");
+
 }
 
 void DefensiveStore::EnterStore(Character* _character)

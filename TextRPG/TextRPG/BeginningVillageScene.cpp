@@ -60,8 +60,9 @@ void BeginningVillageScene::Update()
 			// Save
 			std::cout << "여관입니다." << std::endl;
 			std::cout << "체력과 마나가 회복되었습니다!" << std::endl;
-			_character->SetHp(GetMaxHp);
-			_character->SetMp(GetMaxMp);
+			_getch();
+			_character->SetHp(_character->GetMaxHp());
+			_character->SetMp(_character->GetMaxMp());
 
 			GameSystem::GetInstance()->Save(_character);
 			break;

@@ -106,9 +106,9 @@ void GameSystem::FindinventoryInfoView(std::list<std::pair<std::string, int>>* v
 			{
 				if (it->first == iter->sNameInfo)
 				{
-					std::cout << " [ " << i << " ] " << " [ " << it->first << " ] " << 
-						" [ " << iter->iHpInfo << " ] " << " [ " << iter->iMpInfo << " ] " <<
-						" [ " << iter->iLevelUpInfo << " ] " << " [ " << iter->sTextInfo << " ] " << std::endl;
+					std::cout << " [ 번호 : " << i << " ] " << " [ 이름 : " << it->first << " ] " << 
+						" [ HP 회복 : " << iter->iHpInfo << " ] " << " [ 마나 회복 :" << iter->iMpInfo << " ] " <<
+						" [ 레벨업 : " << iter->iLevelUpInfo << " ] " << " [ 정보 : " << iter->sTextInfo << " ] " << std::endl;
 				}
 			}
 		}
@@ -124,9 +124,9 @@ void GameSystem::FindinventoryInfoView(std::list<std::pair<std::string, int>>* v
 				{
 					if (it->first == iter->sNameInfo)
 					{
-						std::cout << " [ " << i << " ] " << " [ " << it->first << " ] " << " [ " << isWear << " ] " <<
-							" [ " << iter->iAttackPointInfo << " ] " << " [ " << iter->iDefensiveInfo << " ] " <<
-							" [ " << iter->iLevelUpInfo << " ] " << " [ " << iter->sTextInfo << " ] " << std::endl;
+						std::cout << " [ 번호 : " << i << " ] " << " [ 이름 : " << it->first << " ] "  <<
+							" [ 공격력 : " << iter->iAttackPointInfo << " ] " << " [ 방어력 :" << iter->iDefensiveInfo << " ] " <<
+							" [ 착용 레벨 : " << iter->iLevelUpInfo << " ] " << " [ 정보 : " << iter->sTextInfo << " ] " << std::endl;
 					}
 				}
 			}
@@ -143,9 +143,9 @@ void GameSystem::FindinventoryInfoView(std::list<std::pair<std::string, int>>* v
 				{
 					if (it->first == iter->sNameInfo)
 					{
-						std::cout << " [ " << i << " ] " << " [ " << it->first << " ] " << " [ " << isWear << " ] " <<
-							" [ " << iter->iStrInfo << " ] " << " [ " << iter->iDexInfo << " ] " <<
-							" [ " << iter->iIntInfo << " ] " << " [ " << iter->sTextInfo << " ] " << std::endl;
+						std::cout << " [ 번호 : " << i << " ] " << " [ 이름 : " << it->first << " ] "  <<
+							" [ 힘 : " << iter->iStrInfo << " ] " << " [ 민첩 : " << iter->iDexInfo << " ] " <<
+							" [ 지능 : " << iter->iIntInfo << " ] " << " [ 정보 : " << iter->sTextInfo << " ] " << std::endl;
 					}
 				}
 			}
@@ -178,20 +178,23 @@ void GameSystem::FindinventoryInfoView(std::list<std::pair<std::string, int>>* v
 						{
 							if (sName == it->first)
 							{
-								if (true == isWear)
+								if (_character->GetLv() >= iter->iLvInfo)
 								{
-									_character->ChangeWear(_eq,sName, _iSelect);
-									_character->ChangeWearState(iter->iAttackPointInfo, iter->iDefensiveInfo, iter->iStrInfo, iter->iDexInfo, iter->iIntInfo);
-									break;
-								}
-								else
-								{
-									isWear = true;
-									_character->CharacterWear(_eq, sName, _iSelect);
-									_character->ChangeWearState(iter->iAttackPointInfo, iter->iDefensiveInfo, iter->iStrInfo, iter->iDexInfo, iter->iIntInfo);
-									break;
-								}
+									if (true == isWear)
+									{
+										_character->ChangeWear(_eq, sName, _iSelect);
+										_character->ChangeWearState(iter->iAttackPointInfo, iter->iDefensiveInfo, iter->iStrInfo, iter->iDexInfo, iter->iIntInfo);
+										break;
+									}
+									else
+									{
+										isWear = true;
+										_character->CharacterWear(_eq, sName, _iSelect);
+										_character->ChangeWearState(iter->iAttackPointInfo, iter->iDefensiveInfo, iter->iStrInfo, iter->iDexInfo, iter->iIntInfo);
+										break;
+									}
 
+								}
 							}
 						}
 					}

@@ -17,6 +17,7 @@
 
 BeginningVillageScene::BeginningVillageScene()
 {
+	iPlayerSelect = 0; 
 	iRand = 0;
 	iBranch = 0;
 	isQuit = false;
@@ -27,7 +28,7 @@ BeginningVillageScene::BeginningVillageScene()
 
 BeginningVillageScene::~BeginningVillageScene()
 {
-
+	delete parser;
 }
 
 void BeginningVillageScene::Init(int _index)
@@ -40,15 +41,14 @@ void BeginningVillageScene::Update()
 {
 	srand((unsigned)time(NULL));
 	
-	iSelect = 0;
 	while (1)
 	{
 		InitMap();
 
 		std::cout << " ( 1 ~ 6 ) 선택해 주세요 : ";
-		std::cin >> iSelect;
+		std::cin >> iPlayerSelect;
 
-		switch (iSelect)
+		switch (iPlayerSelect)
 		{
 		case 1:
 			InitVillage(iRand);
@@ -57,6 +57,13 @@ void BeginningVillageScene::Update()
 			InitStore();
 			break;
 		case 3:
+			// Save
+			std::cout << "여관입니다." << std::endl;
+			std::cout << "체력과 마나가 회복되었습니다!" << std::endl;
+			_character->SetHp(GetMaxHp);
+			_character->SetMp(GetMaxMp);
+
+			GameSystem::GetInstance()->Save(_character);
 			break;
 		case 4:
 			SceneManager::GetInstance()->ChangeScene(eScene::SCENE_DUNGEON, 0);
@@ -65,17 +72,20 @@ void BeginningVillageScene::Update()
 			_character->PlayerState();
 			break;
 		case 6:
+			std::cout << " 게 임 종 료 " << std::endl;
+			_getch();
+			GameSystem::GetInstance()->SetIsGameProgress(false);
 			break;
 		default:
 			std::cout << "잘못된 값을 입력 했습니다. 다시 입력해 주세요 !!" << std::endl;
-			std::cin.clear();
-			std::cin.ignore();
+			GameSystem::GetInstance()->StdCinClear();
+
 			system("cls");
 
 			break;
 		}
 
-		if (1 <= iSelect || 6 >= iSelect)
+		if (1 <= iPlayerSelect || 6 >= iPlayerSelect)
 		{
 			break;
 		}
@@ -119,6 +129,7 @@ void BeginningVillageScene::VillageUpdate(int iRandom)
 				if (7 == iRandom)
 				{
 					iBranch = 4;
+					_character->SetGold(10000);
 				}
 
 			}
@@ -128,7 +139,6 @@ void BeginningVillageScene::VillageUpdate(int iRandom)
 	}
 
 	system("cls");
-	InitMap();
 }
 
 void BeginningVillageScene::InitStore()
@@ -137,28 +147,26 @@ void BeginningVillageScene::InitStore()
 
 	Item* item = new Item();
 	Store* store = 0;
-	//
 
-	//
 	while (1)
 	{
 		std::cout << "1. 잡화상점 2. 무기 상점 3. 방어구 상점 " << std::endl;
 		std::cout << "어느 상점으로 이동 하시겠습니까? " << std::endl;
-		std::cin >> iSelect;
+		std::cin >> iPlayerSelect;
 
-		if (1 == iSelect)
+		if (1 == iPlayerSelect)
 		{
 			store = new GeneralStore();
 			store->ItemInit();
 			break;
 		}
-		else if (2 == iSelect)
+		else if (2 == iPlayerSelect)
 		{
 			store = new ArmsStore();
 			store->ItemInit();
 			break;
 		}
-		else if (3 == iSelect)
+		else if (3 == iPlayerSelect)
 		{
 			store = new DefensiveStore();
 			store->ItemInit();
@@ -167,8 +175,8 @@ void BeginningVillageScene::InitStore()
 		else
 		{
 			std::cout << "잘못된 값을 입력 했습니다. 다시 입력해 주세요 !" << std::endl;
-			std::cin.clear();
-			std::cin.ignore();
+			GameSystem::GetInstance()->StdCinClear();
+
 			continue;
 		}
 	}

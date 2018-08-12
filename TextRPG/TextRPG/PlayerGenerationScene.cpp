@@ -12,6 +12,7 @@
 
 PlayerGenerationScene::PlayerGenerationScene()
 {
+	iPlayerSelect = 0;
 	parser = new ParsingSystem();
 	iBranch = 0;
 	isQuit = false;
@@ -19,7 +20,7 @@ PlayerGenerationScene::PlayerGenerationScene()
 
 PlayerGenerationScene::~PlayerGenerationScene()
 {
-
+	delete parser;
 }
 
 void PlayerGenerationScene::Init(int _index)
@@ -39,10 +40,3 @@ void PlayerGenerationScene::Update()
 		}
 	}
 }
-
-void PlayerGenerationScene::GotoXY(int x, int y)
-{
-	COORD pos = { x ,y };
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
-}
-

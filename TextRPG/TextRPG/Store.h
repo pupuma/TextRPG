@@ -1,11 +1,13 @@
 #pragma once
 
-#include "ParsingSystem.h"
 #include <map>
 #include <list>
 #include <iomanip>
 #include <iostream>
 #include <conio.h>
+
+#include "ParsingSystem.h"
+#include "GameSystem.h"
 
 class Character;
 
@@ -20,6 +22,9 @@ enum eStoreType
 class Store
 {
 protected:
+	int iPlayerSelect;
+	char chText;
+
 	ParsingSystem* parser;
 	Item* _item;
 	eStoreType m_StoreType;

@@ -1,4 +1,5 @@
 #include "StringBranch.h"
+
 #include <conio.h>
 #include <iostream>
 
@@ -17,78 +18,77 @@ void StringBranch::Process(int* nextBranch, eScene type, bool * isQuit)
 {
 	Print();
 
-	int selectBranch = 0;
 	while (true)
 	{
 		std::cout << "선택한 번호는 ? : ";
 
-		std::cin >> selectBranch;
+		std::cin >> iPlayerSelect;
 
 		if (type == eScene::SCENE_CREATECHACTER)
 		{
-			if (2 == selectBranch)
+			if (2 == iPlayerSelect)
 			{
-				*nextBranch = selectBranch;
-				GameSystem::GetInstance()->PlayerInit(selectBranch);
+				*nextBranch = iPlayerSelect;
+				GameSystem::GetInstance()->PlayerInit(iPlayerSelect);
 				break;
 			}
-			else if (3 == selectBranch)
+			else if (3 == iPlayerSelect)
 			{
-				*nextBranch = selectBranch;
-				GameSystem::GetInstance()->PlayerInit(selectBranch);
+				*nextBranch = iPlayerSelect;
+				GameSystem::GetInstance()->PlayerInit(iPlayerSelect);
 				break;
 			}
-			else if (4 == selectBranch)
+			else if (4 == iPlayerSelect)
 			{
-				*nextBranch = selectBranch;
-				GameSystem::GetInstance()->PlayerInit(selectBranch);
+				*nextBranch = iPlayerSelect;
+				GameSystem::GetInstance()->PlayerInit(iPlayerSelect);
 
 				break;
 			}
 			else
 			{
 				std::cout << "잘못된 범위를 입력했습니다. 다시 입력해 주세요 !!" << std::endl;
-				std::cin.clear();
-				std::cin.ignore();
+				GameSystem::GetInstance()->StdCinClear();
+
 				continue;
 			}
 			//
 		}
 		else if (type == eScene::SCENE_VILLAGE)
 		{
-			if (2 == selectBranch)
+			if (2 == iPlayerSelect)
 			{
-				*nextBranch = selectBranch;
+				*nextBranch = iPlayerSelect;
 				break;
 			}
-			else if (3 == selectBranch)
+			else if (3 == iPlayerSelect)
 			{
-				*nextBranch = selectBranch;
+				*nextBranch = iPlayerSelect;
 				break;
 			}
 			else
 			{
 				std::cout << "잘못된 범위를 입력했습니다. 다시 입력해 주세요 !!" << std::endl;
-				std::cin.clear();
-				std::cin.ignore();
+				GameSystem::GetInstance()->StdCinClear();
+
 				continue;
 			}
 		}
 		else if (type == eScene::SCENE_DUNGEON)
 		{
-			if (1 == selectBranch)
+			if (1 == iPlayerSelect)
 			{
-				*nextBranch = selectBranch;
+				*nextBranch = iPlayerSelect;
 				break;
 
 			}
-			else if (2 == selectBranch)
+			else if (2 == iPlayerSelect)
 			{
-				*nextBranch = selectBranch;
+				*nextBranch = iPlayerSelect;
 				break;
 
 			}
-			else if (3 == selectBranch)
+			else if (3 == iPlayerSelect)
 			{
 				*isQuit = true;
 				break;
@@ -96,15 +96,15 @@ void StringBranch::Process(int* nextBranch, eScene type, bool * isQuit)
 			else if (std::cin.fail())
 			{
 				std::cout << "잘못된 범위를 입력했습니다. 다시 입력해 주세요 !!" << std::endl;
-				std::cin.clear();
-				std::cin.ignore();
+				GameSystem::GetInstance()->StdCinClear();
+
 				continue;
 			}
 			else
 			{
 				std::cout << "잘못된 범위를 입력했습니다. 다시 입력해 주세요 !!" << std::endl;
-				std::cin.clear();
-				std::cin.ignore();
+				GameSystem::GetInstance()->StdCinClear();
+
 				continue;
 			}
 		}

@@ -1,21 +1,17 @@
 #pragma once
 
 #include "Character.h"
+#include "GameSystem.h"
 
 
-enum eJobType
-{
-	NONE,
-	WARRIOR = 2,
-	ARCHER,
-	WIZARD,
-};
 
 
 class Player
 	: public Character
 {
 private:
+	int iPlayerSelect;
+	char chText;
 	std::string sPlayerName;
 	eJobType jobType;
 	int iLv;
@@ -25,9 +21,10 @@ private:
 	int iGold;
 	int iStatePoint;
 	int iInvenSize;
-	int iExp;
+	int iMaxHp;
+	int iMaxMp;
 	sEquipment* eq;
-
+	std::list<sData> lPoseanList;
 public:
 	Player();
 	~Player();
@@ -40,10 +37,11 @@ public:
 public:
 	int GetGold() { return iGold; }
 	void SetGold(int _gold) { iGold = _gold; }
+	std::list<std::pair< std::string, int>> GetInventory() { return vInventory; }
 	void AddInventory(std::list<Item>::iterator& it);
 	void InventoryView();
 	void InventoryInfoView(int _iSelect, sEquipment* _eq);
-
+	void InventoryPoseonView();
 	int GetInventorySize();
 	int DeleteInventoryItem(int iPlayerSelect);
 	int DeleteInventoryItem(std::string _name);
@@ -57,6 +55,7 @@ public:
 	
 public:
 	eJobType GetjobType() { return jobType; }
+	std::string GetName() { return sPlayerName;  }
 	int GetHp() { return iHp; }
 	int GetMp() { return iMp; }
 	int GetAttackPoint() { return iAttackPoint; }
@@ -66,16 +65,25 @@ public:
 	int GetDex() { return iDex; }
 	int GetInt() { return iInt; }
 	int GetStatePoint() { return iStatePoint; }
+	int GetExp() { return iExp; }
+	int GetMaxHp() { return iMaxHp; }
+	int GetMaxMp() { return iMaxHp; }
 
+	void SetLevel(int _lv) { iLv = _lv; }
+	void SetJob(eJobType _job) { jobType = _job; }
+	void SetLv(int _lv) { iLv = _lv; }
 	void SetHp(int _hp) { iHp = _hp; }
 	void SetMp(int _mp) { iMp = _mp; }
 	void SetAttackPoint(int _point) { iAttackPoint = _point; }
 	void SetDefensePoint(int _point) { iDefensePoint = _point; }
-	void SetLv(int _lv) { iLv = _lv; }
 	void SetStr(int _str) { iStr = _str; }
 	void SetDex(int _dex) { iDex = _dex; }
 	void SetInt(int _int) { iInt =_int; }
 	void SetStatePoint(int _point) { iStatePoint = _point; }
+	void SetExp(int _exp) { iExp = _exp; }
+	void SetMaxHp(int _hp) { iMaxHp = _hp; }
+	void SetMaxMp(int _mp) { iMaxHp = _mp; }
+
 public:
 	void CharacterWear(sEquipment* _eq, std::string sName ,int _iSelect);
 	void ChangeWear(sEquipment* _eq, std::string sName, int _iSelect);
@@ -85,5 +93,13 @@ public:
 	void WarriorStateUpdate();
 	void ArcherStateUpdate();
 	void WizardStateUpdate();
+	void DecreaseHP(int _attackPoint);
+	void Reset(int _hp);
+	void IncreaseExp( Character* _monster);
+	void LevelUp();
+	int Skill();
+	int SkillDamge(int iSelectSkill);
+	void DrinkingPoseon();
+
 };
 

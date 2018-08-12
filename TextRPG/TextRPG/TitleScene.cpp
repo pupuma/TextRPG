@@ -3,8 +3,10 @@
 #include <Windows.h>
 #include <iostream>
 #include <conio.h>
-#include "SceneManager.h"
 
+#include "SceneManager.h"
+#include "ParsingSystem.h"
+#include "GameSystem.h"
 
 TitleScene::TitleScene()
 {
@@ -22,8 +24,8 @@ void TitleScene::Init(int _index)
 
 void TitleScene::Update()
 {
-	int iPlayerSelect = 0;
 	bool isStart = false;
+	bool _isLoad = false;
 	while (false == isStart)
 	{
 		std::cout << "======================================" << std::endl;
@@ -42,22 +44,37 @@ void TitleScene::Update()
 			isStart = true;
 			break;
 		case 2:
-			isStart = true;
+			GameSystem::GetInstance()->Load(&_isLoad);
+
+			if (true == _isLoad)
+			{
+				SceneManager::GetInstance()->ChangeScene(eScene::SCENE_VILLAGE, 0);
+				isStart = true;
+
+			}
+			else
+			{
+				std::cout << "로드를 실패하였습니다.." << std::endl;
+				system("pause");
+				GameSystem::GetInstance()->StdCinClear();
+
+				break;
+			}
+
 			break;
 		case 3:
+			isStart = true;
+			GameSystem::GetInstance()->SetIsGameProgress(false);
 			break;
 		default:
 			std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요 ! " << std::endl;
+			GameSystem::GetInstance()->StdCinClear();
+
 			_getch();
 			break;
 		}
 		
 		system("cls");
 	}
-}
 
-void TitleScene::GotoXY(int x, int y)
-{
-	COORD pos = { x ,y };
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }

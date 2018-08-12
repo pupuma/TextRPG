@@ -54,3 +54,9 @@ void SceneManager::Update()
 {
 	_scene->Update();
 }
+
+void SceneManager::Release()
+{
+	delete _scene;
+	delete _instance;
+}

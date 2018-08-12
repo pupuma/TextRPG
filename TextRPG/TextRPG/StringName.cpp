@@ -1,6 +1,8 @@
 #include "StringName.h"
+
 #include <iostream>
 #include <conio.h>
+
 #include "GameSystem.h"
 StringName::StringName()
 {

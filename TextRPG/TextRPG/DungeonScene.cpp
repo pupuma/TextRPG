@@ -10,6 +10,7 @@
 
 DungeonScene::DungeonScene()
 {
+	iPlayerSelect = 0;
 	_player = GameSystem::GetInstance()->GetCharacter();
 }
 
@@ -36,7 +37,6 @@ void DungeonScene::Init(int _index)
 
 void DungeonScene::Update()
 {
-	char chText;
 
 	while (1)
 	{
@@ -46,23 +46,25 @@ void DungeonScene::Update()
 		if ('y' == chText || 'Y' == chText)
 		{
 			DungeonStart();
+			break;
 		}
-		else if ('n ' == chText || 'N' == chText)
+		else if ('n' == chText || 'N' == chText)
 		{
 			SceneManager::GetInstance()->ChangeScene(eScene::SCENE_VILLAGE, 0);
+			break;
 		}
 		else if (std::cin.fail())
 		{
 			std::cout << "잘못된 값을 입력 했습니다. 다시 입력해 주세요 !" << std::endl;
-			std::cin.clear();
-			std::cin.ignore();
+			GameSystem::GetInstance()->StdCinClear();
+
 			continue;
 		}
 		else
 		{
 			std::cout << "잘못된 값을 입력 했습니다. 다시 입력해 주세요 !" << std::endl;
-			std::cin.clear();
-			std::cin.ignore();
+			GameSystem::GetInstance()->StdCinClear();
+
 			continue;
 		}
 	}
@@ -70,11 +72,19 @@ void DungeonScene::Update()
 
 void DungeonScene::DungeonStart()
 {
+	GameSystem::GetInstance()->InitPosen(_player);
+	
+	iBranch = 0;
 	while (false == isQuit)
 	{
+		if (iBranch == 11)
+		{
+			paragraphList[iBranch].Process(&iBranch, sceneType, &isQuit);
+		}
 		if (iBranch < pargraphCount)
 		{
 			paragraphList[iBranch].Process(&iBranch, sceneType, &isQuit);
 		}
+
 	}
 }

@@ -1,10 +1,16 @@
 #pragma once
-//#include <map>
 #include <list>
 #include <string>
 
 #include "Item.h"
 
+enum eJobType
+{
+	NONE,
+	WARRIOR = 2,
+	ARCHER,
+	WIZARD,
+};
 
 struct sEquipment
 {
@@ -38,51 +44,75 @@ protected:
 	int iAttackPoint;
 	int iDefensePoint;
 	int iGold;
+	int iExp;
+	bool isLive;
 protected:
-	//std::pair<int, int> pKey;
-	//std::map<std::pair<int, int>, std::string> mInventory;
-	//std::list<std::string> vInventory;
-	std::list<std::pair< std::string,int>>vInventory;
+	std::list<std::pair< std::string, int>> vInventory;
 public:
 	Character();
 	~Character();
 public:
-	virtual void SetName(std::string _name);
-	virtual std::string GetName() { return 0; }
-	virtual void Init(int _number) = 0;
+	virtual std::list<std::pair< std::string, int>> GetInventory() { return vInventory; }
+public:
 	virtual void Init(int _number, Character* _charater);
-	virtual int GetGold() = 0;
-	virtual void SetGold(int _gold) = 0;
+	virtual void SetName(std::string _name);
 	virtual void AddInventory(std::list<Item>::iterator& it);
 	virtual void InventoryView();
+	virtual void PlayerState();
 
 	virtual int GetInventorySize();
 	virtual int DeleteInventoryItem(int iPlayerSelect);
 public:
-	virtual void PlayerState();
+	virtual void Init(int _number) = 0;
+	virtual void SetGold(int _gold) = 0;
+
+	virtual int GetGold() = 0;
+
 public:
+public:
+	virtual std::string GetName() { return NULL; }
+
 	virtual int GetHp() { return iHp; }
 	virtual int GetMp() { return iMp; }
 	virtual int GetAttackPoint() { return iAttackPoint; }
 	virtual int GetDefensePoint() { return iDefensePoint; }
-	
+	virtual eJobType GetjobType() { return (eJobType)0; }
 	virtual int GetLv() { return 0; }
 	virtual int GetStr() { return 0; }
 	virtual int GetDex() { return 0; }
 	virtual int GetInt() { return 0; }
 	virtual int GetStatePoint() { return 0; }
+	virtual int GetExp() { return iExp; }
+	virtual int GetMaxHp() { return iHp; }
+	virtual int GetMaxMp() { return iMp; }
 
+	virtual void SetLevel(int _lv) { }
+	virtual void SetJob(eJobType _job) {}
+	virtual void SetLv(int _lv) {  }
+	virtual void SetHp(int _hp) {  }
+	virtual void SetMp(int _mp) {  }
 	virtual void  SetAttackPoint(int _point) { iAttackPoint=_point; }
 	virtual void  SetDefensePoint(int _point) { iDefensePoint= _point; }
 	virtual void SetStr(int _str) {  }
 	virtual void SetDex(int _dex) {  }
 	virtual void SetInt(int _int) {  }
 	virtual void SetStatePoint(int _point) { }
+	virtual void SetExp(int _exp) {  }
+
 public:
 	virtual void CharacterWear(sEquipment* _eq, std::string sName, int _iSelect);
 	virtual void ChangeWear(sEquipment* _eq, std::string sName,int _iSelect);
 	virtual void ChangeWearState(int iAttackPointInfo, int iDefensiveInfo, int iStrInfo, int iDexInfo, int iIntInfo);
 	virtual void Update() = 0;
+public:
+	virtual void DecreaseHP(int _attackPoint);
+	virtual bool IsLive() { return isLive; }
+	virtual void Reset(int _hp);
+	virtual void IncreaseExp(Character* _monster);
+	virtual int Skill();
+	virtual int SkillDamge(int iSelectSkill);
+	virtual void DrinkingPoseon();
+
 
 };
 

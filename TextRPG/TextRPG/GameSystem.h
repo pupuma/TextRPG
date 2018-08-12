@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <list>
+
 #include "Item.h"
 #include "Character.h"
 
@@ -13,7 +14,7 @@ enum eCharacterType
 
 struct sData
 {
-	//ItemCode,ItemType,ItemName,ItemPrice, HP, MP,Lv,LevleUp, AttackPoint, Defensive, Str, DEX, INT, InfoText
+	
 	int iCodeInfo = 0;
 	eItemType eTypeInfo;
 	std::string sNameInfo;
@@ -35,18 +36,19 @@ class GameSystem
 private:
 	Character* _character;
 	ParsingSystem* _parser;
-	//std::vector < std::pair<std::pair<int, std::string>, std::string>> vRecveryInfo;
-	//std::vector < std::pair<std::pair<int, std::string>, std::string>> vArmsInfo;
-	//std::vector < std::pair<std::pair<int, std::string>, std::string>> vDefensiveInfo;
-private:
-	std::vector <sData> vRecveryInfo;
-	std::vector <sData> vArmsInfo;
-	std::vector <sData> vDefensiveInfo;
+	bool isGameProgress;
+	int iPlayerSelect;
+	char chText;
+	private:
+	std::vector<sData> vRecveryInfo;
+	std::vector<sData> vArmsInfo;
+	std::vector<sData> vDefensiveInfo;
+	std::list<sData> lPoseonInventory;
 public:
 	std::vector<sData> GetRecveryInfo() { return vRecveryInfo; }
 	std::vector<sData> GetArmsInfo() { return vArmsInfo; }
 	std::vector<sData> GetDefensiveInfo() { return vDefensiveInfo; }
-
+	std::list<sData> GetPoseonInventory() { return lPoseonInventory; }
 private:
 	GameSystem();
 	~GameSystem();
@@ -55,6 +57,7 @@ private:
 public:
 	static GameSystem* GetInstance();
 public:
+	void InitPosen(Character* _player);
 	void CharacterCreate(eCharacterType type);
 	Character* GetCharacter() { return _character; }
 	void PlayerInit(int _number);
@@ -63,6 +66,14 @@ public:
 	void FindinventoryInfoView(std::list<std::pair< std::string, int>>* vInventory, int _iSelect, sEquipment* _eq);
 public:
 	void CollisionEvent(Character* _player, Character* _monster, int _rand, int* nextBranch, bool* isQuit);
-
+	void Battle(Character* _player, Character* _monster, int* nextBranch, bool* isQuit);
+public:
+	void Save(Character* _player);
+	void Load(bool* _isLoad);
+	void SetIsGameProgress(bool _isGameProgress) { isGameProgress = _isGameProgress; }
+	bool GetIsGameProgress() { return isGameProgress; }
+public:
+	void StdCinClear();
+	void Release();
 };
 

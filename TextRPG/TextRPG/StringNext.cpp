@@ -1,8 +1,10 @@
 #include "StringNext.h"
-#include "SceneManager.h"
 
 #include <conio.h>
 #include <iostream>
+
+#include "SceneManager.h"
+#include "GameSystem.h"
 
 StringNext::StringNext()
 {
@@ -19,7 +21,6 @@ void StringNext::Process(int* nextBranch, eScene type, bool* isQuit)
 	std::cout << " y / n ? ";
 	while (1)
 	{
-		char chText;
 		std::cin >> chText;
 		std::cout << std::endl;
 
@@ -54,8 +55,8 @@ void StringNext::Process(int* nextBranch, eScene type, bool* isQuit)
 		else
 		{
 			std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요 " << std::endl;
-			std::cin.clear();
-			std::cin.ignore();
+			GameSystem::GetInstance()->StdCinClear();
+
 		}
 	}
 	

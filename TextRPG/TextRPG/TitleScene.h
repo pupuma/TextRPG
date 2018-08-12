@@ -15,7 +15,6 @@ public:
 	void Init(int _index);
 	void Update();
 public:
-	void GotoXY(int x, int y);
 
 
 };

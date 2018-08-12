@@ -1,10 +1,11 @@
 #include "Player.h"
+
 #include <iostream>
 
-#include "GameSystem.h"
 
 Player::Player()
 {
+	iPlayerSelect = 0;
 	iGold = 1000;
 	iInvenSize = 0;
 	iStatePoint = 10;
@@ -82,13 +83,14 @@ void Player::AddInventory(std::list<Item>::iterator& it)
 		pKey.second = it->iPrice /2;
 		vInventory.push_back(pKey);
 		iInvenSize++;
+
+		//
 	}
 	
 }
 
 void Player::InventoryView()
 {
-	//std::list<std::string>::iterator it;
 	std::list<std::pair<std::string,int>>::iterator it;
 	int i = 1;
 	std::cout << "======번호==아이템명====가격=======" << std::endl;
@@ -106,6 +108,28 @@ void Player::InventoryInfoView(int _iSelect, sEquipment* _eq)
 	}
 }
 
+void Player::InventoryPoseonView()
+{
+	{
+		std::list<sData> lPosean = GameSystem::GetInstance()->GetPoseonInventory();
+		std::list<sData>::iterator it;
+		std::list<sData>::iterator itBegin = lPosean.begin();
+		std::list<sData>::iterator itEnd = lPosean.end();
+
+		int i = 1;
+		for (it = itBegin; it != itEnd; it++,i++)
+		{
+			std::cout << "[ 번호 : " << i << " ]" << "   " <<
+				" [  아이템명 : " << it->sNameInfo << " ] " << "   " <<
+				" [  HP 회복 : " << it->iHpInfo << " ] " << "   " <<
+				" [  MP 회복 : " << it->iMpInfo << " ] " << "   " <<
+				" [  레벨업  : " << it->iLevelUpInfo << " ] " << std::endl;
+		}
+
+	
+	}
+}
+
 
 int Player::GetInventorySize()
 {
@@ -120,21 +144,32 @@ int Player::DeleteInventoryItem(int iPlayerSelect)
 		return 0;
 	}
 	std::list<std::pair<std::string, int>>::iterator it;
+	std::list<std::pair<std::string, int>>::iterator iter;
+
 	int iGold;
 	int iIndex = 1;
 	for (it = vInventory.begin(); it != vInventory.end(); it++,iIndex++)
 	{
+		if (0 == vInventory.size())
+		{
+			break;
+		}
+
 		if (iPlayerSelect == iIndex)
 		{
 			iGold = it->second;
-			vInventory.pop_back();
+			iter = it;
+			it = vInventory.erase(iter);
+			break;
 		}
+
 		if (0 == vInventory.size())
 		{
 			break;
 		}
 		
 	}
+	iIndex = 0;
 	InventoryView();
 
 	return iGold;
@@ -148,7 +183,6 @@ int Player::DeleteInventoryItem(std::string _name)
 		return 0;
 	}
 	std::list<std::pair<std::string, int>>::iterator it;
-	int iGold;
 	int iIndex = 1;
 	for (it = vInventory.begin(); it != vInventory.end(); it++, iIndex++)
 	{
@@ -162,7 +196,6 @@ int Player::DeleteInventoryItem(std::string _name)
 		}
 
 	}
-	//InventoryView();
 
 	return 0;
 }
@@ -174,15 +207,15 @@ void Player::PlayerState()
 	std::cout << "=======================================" << std::endl;
 	
 	// 캐릭터 정보
-	int iSelect;
+	
 	bool isQuit = false;
 	while (false == isQuit)
 	{
 		std::cout << "1. 캐릭터 정보 / 2. 캐릭터 장비 / 3. 캐릭터 가방 / 4. 돌아가기" << std::endl;
 		std::cout << "숫자를 입력해 주세요 : ";
-		std::cin >> iSelect;
+		std::cin >> iPlayerSelect;
 		
-		switch (iSelect)
+		switch (iPlayerSelect)
 		{
 		case 1:
 			CharacterInfo();
@@ -199,8 +232,7 @@ void Player::PlayerState()
 			break;
 		default:
 			std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요 " << std::endl;
-			std::cin.clear();
-			std::cin.ignore();
+			GameSystem::GetInstance()->StdCinClear();
 		}
 	}
 }
@@ -245,7 +277,6 @@ void Player::CharacterInfo()
 	}
 	else
 	{
-		char chText;
 		while (1)
 		{
 
@@ -301,8 +332,6 @@ void Player::CharacterInventory(sEquipment* _eq)
 		system("cls");
 		return;
 	}
-	int iSelect;
-	bool _isQuit;
 	
 
 	while (1)
@@ -312,36 +341,36 @@ void Player::CharacterInventory(sEquipment* _eq)
 		std::cout << "=======================================" << std::endl;
 
 		std::cout << "어느 가방으로 이동 하시겠습니까?";
-		std::cin >> iSelect;
+		std::cin >> iPlayerSelect;
 
-		if (1 == iSelect)
+		if (1 == iPlayerSelect)
 		{
-			InventoryInfoView(iSelect, _eq);
+			InventoryInfoView(iPlayerSelect, _eq);
 		}
-		else if (2 == iSelect)
+		else if (2 == iPlayerSelect)
 		{
-			InventoryInfoView(iSelect, _eq);
+			InventoryInfoView(iPlayerSelect, _eq);
 		}
-		else if (3 == iSelect)
+		else if (3 == iPlayerSelect)
 		{
-			InventoryInfoView(iSelect, _eq);
+			InventoryInfoView(iPlayerSelect, _eq);
 		}
-		else if (4 == iSelect)
+		else if (4 == iPlayerSelect)
 		{
 			break;
 		}
 		else if (std::cin.fail())
 		{
 			std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요 " << std::endl;
-			std::cin.clear();
-			std::cin.ignore();
+			GameSystem::GetInstance()->StdCinClear();
+
 			continue;
 		}
 		else
 		{
 			std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요 " << std::endl;
-			std::cin.clear();
-			std::cin.ignore();
+			GameSystem::GetInstance()->StdCinClear();
+
 			continue;
 		}
 	}
@@ -352,10 +381,8 @@ void Player::CharacterInventory(sEquipment* _eq)
 
 void Player::StateUp()
 {
-	//
 	system("cls");
 
-	int iSelect;
 	int iPointUp;
 
 	int iStrPoint;
@@ -368,10 +395,10 @@ void Player::StateUp()
 		std::cout <<"현재 스텟포인트 ! : "<< GetStatePoint()<< std::endl;
 		std::cout << "1. 힘 / 2. 민첩 / 3. 지능 " << std::endl;
 		std::cout << "어느곳에 포인트를 올리겠습니까? :" ;
-		std::cin >> iSelect;
+		std::cin >> iPlayerSelect;
 
 		
-		if(1 == iSelect)
+		if(1 == iPlayerSelect)
 		{
 			std::cout << "몇 포인트를 올리겠습니까? :";
 			std::cin >> iPointUp;
@@ -379,8 +406,8 @@ void Player::StateUp()
 			if (GetStatePoint() < iPointUp || std::cin.fail())
 			{
 				std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요 " << std::endl;
-				std::cin.clear();
-				std::cin.ignore();
+				GameSystem::GetInstance()->StdCinClear();
+
 				continue;
 			}
 			else
@@ -393,7 +420,7 @@ void Player::StateUp()
 			}
 			
 		}
-		else if (2 == iSelect)
+		else if (2 == iPlayerSelect)
 		{
 			std::cout << "몇 포인트를 올리겠습니까? :";
 			std::cin >> iPointUp;
@@ -402,8 +429,8 @@ void Player::StateUp()
 			if (GetStatePoint() < iPointUp || std::cin.fail())
 			{
 				std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요 " << std::endl;
-				std::cin.clear();
-				std::cin.ignore();
+				GameSystem::GetInstance()->StdCinClear();
+
 				continue;
 			}
 			else
@@ -415,7 +442,7 @@ void Player::StateUp()
 				SetStatePoint(iPoint);
 			}
 		}
-		else if (3 == iSelect)
+		else if (3 == iPlayerSelect)
 		{
 			std::cout << "몇 포인트를 올리겠습니까? :";
 			std::cin >> iPointUp;
@@ -423,8 +450,8 @@ void Player::StateUp()
 			if (GetStatePoint() < iPointUp || std::cin.fail())
 			{
 				std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요 " << std::endl;
-				std::cin.clear();
-				std::cin.ignore();
+				GameSystem::GetInstance()->StdCinClear();
+
 				continue;
 			}
 			else
@@ -439,8 +466,8 @@ void Player::StateUp()
 		else
 		{
 			std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요 " << std::endl;
-			std::cin.clear();
-			std::cin.ignore();
+			GameSystem::GetInstance()->StdCinClear();
+
 			continue;
 		}
 		// 스텟 초기화 
@@ -484,15 +511,15 @@ void Player::CharacterWear(sEquipment* _eq,std::string sName, int _iSelect)
 			else if (std::cin.fail())
 			{
 				std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요 " << std::endl;
-				std::cin.clear();
-				std::cin.ignore();
+				GameSystem::GetInstance()->StdCinClear();
+
 				continue;
 			}
 			else
 			{
 				std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요 " << std::endl;
-				std::cin.clear();
-				std::cin.ignore();
+				GameSystem::GetInstance()->StdCinClear();
+
 				continue;
 			}
 		}
@@ -527,17 +554,15 @@ void Player::CharacterWear(sEquipment* _eq,std::string sName, int _iSelect)
 
 void Player::ChangeWear(sEquipment* _eq, std::string sName, int _iSelect)
 {
-	int iHandSelect;
-
 
 	if (2 == _iSelect)
 	{
 		while (1)
 		{
 			std::cout << "1. 오른손 / 2. 왼손 " << std::endl;
-			std::cin >> iHandSelect;
+			std::cin >> iPlayerSelect;
 
-			if (1 == iHandSelect)
+			if (1 == iPlayerSelect)
 			{
 				if (true == _eq->IsRighthandGear)
 				{
@@ -548,7 +573,7 @@ void Player::ChangeWear(sEquipment* _eq, std::string sName, int _iSelect)
 					break;
 				}
 			}
-			else if (2 == iHandSelect)
+			else if (2 == iPlayerSelect)
 			{
 				if (true == _eq->IsLeftHandGear)
 				{
@@ -562,15 +587,15 @@ void Player::ChangeWear(sEquipment* _eq, std::string sName, int _iSelect)
 			else if (std::cin.fail())
 			{
 				std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요 " << std::endl;
-				std::cin.clear();
-				std::cin.ignore();
+				GameSystem::GetInstance()->StdCinClear();
+
 				continue;
 			}
 			else
 			{
 				std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요 " << std::endl;
-				std::cin.clear();
-				std::cin.ignore();
+				GameSystem::GetInstance()->StdCinClear();
+
 				continue;
 			}
 		}
@@ -642,6 +667,8 @@ void Player::WarriorStateUpdate()
 	int iAttack = GetAttackPoint() + GetStr() * GetLv();
 	int iHp = GetHp() + GetStr() + 10;
 	int iMp = GetMp() + GetInt();
+	SetMaxHp(iHp);
+	SetMaxMp(iMp);
 	SetAttackPoint(iAttack);
 	SetHp(iHp);
 	SetMp(iMp);
@@ -654,6 +681,8 @@ void Player::ArcherStateUpdate()
 	int iDef = GetDefensePoint() + ((GetDex() / 5) + 2);
 	int iHp = GetHp() + GetStr() + 3;
 	int iMp = GetMp() + GetInt();
+	SetMaxHp(iHp);
+	SetMaxMp(iMp);
 	SetAttackPoint(iAttack);
 	SetDefensePoint(iDef);
 	SetHp(iHp);
@@ -665,7 +694,400 @@ void Player::WizardStateUpdate()
 	int iAttack = GetAttackPoint() + (GetInt()/3) * GetLv();
 	int iHp = GetHp() + GetStr() + 3;
 	int iMp = GetMp() + GetInt() +10;
+	SetMaxHp(iHp);
+	SetMaxMp(iMp);
 	SetAttackPoint(iAttack);
 	SetHp(iHp);
 	SetMp(iMp);
 }
+
+void Player::DecreaseHP(int _attackPoint)
+{
+	SetHp(GetHp() - _attackPoint);
+
+	if (GetHp() <= 0)
+	{
+		SetHp(0);
+	}
+}
+
+void Player::Reset(int _hp)
+{
+	SetHp(_hp);
+}
+
+void Player::IncreaseExp(Character* _monster)
+{
+	int iExpLine = GetExp();
+	iExpLine -= _monster->GetExp();
+
+	if (0 >= iExpLine)
+	{
+		LevelUp();
+	}
+
+}
+
+void Player::LevelUp()
+{
+	SetLv(GetLv() + 1);
+	iStatePoint = iStatePoint + 5;
+}
+
+int Player::Skill()
+{
+	if (GetjobType() == eJobType::WARRIOR)
+	{
+		std::cout << "1. 스매쉬! ( 힘 x 공격력 , 마나 10 ) " << std::endl;
+		std::cout << "2. 필살 스매쉬 ! ( 힘 x 공격력 + 50 , 마나 50 )  " << std::endl;
+		std::cout << "3. 궁극 스매쉬 ! ( 힘 x 공격력 + 500  , 마나 100)  " << std::endl;
+		std::cout << "4. 나가기 " << std::endl;
+		std::cout << "현재 MP : " << GetMp() << std::endl;
+		while (1)
+		{
+			std::cout << "어떤 스킬을 사용하시겠습니까? ( 1 ~4 ) :";
+			std::cin >> iPlayerSelect;
+
+			if (1 == iPlayerSelect)
+			{
+				if (10 > GetMp())
+				{
+					std::cout << "마나가 부족 합니다.."<< std::endl;
+					GameSystem::GetInstance()->StdCinClear();
+
+					continue;
+				}
+				break;
+
+			}
+			else if (2 == iPlayerSelect)
+			{
+				if (50 > GetMp())
+				{
+					std::cout << "마나가 부족 합니다.." << std::endl;
+					GameSystem::GetInstance()->StdCinClear();
+
+					continue;
+				}
+				break;
+
+			}
+			else if (3 == iPlayerSelect)
+			{
+				if (100 > GetMp())
+				{
+					std::cout << "마나가 부족 합니다.." << std::endl;
+					GameSystem::GetInstance()->StdCinClear();
+
+					continue;
+				}
+				break;
+
+			}
+			else if (4 == iPlayerSelect)
+			{
+				std::cout << "선택창으로 이동 합니다." << std::endl;
+				break;
+			}
+			else
+			{
+				std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요! " << std::endl;
+				GameSystem::GetInstance()->StdCinClear();
+
+				continue;
+			}
+		}
+	}
+	else if (GetjobType() == eJobType::ARCHER)
+	{
+		std::cout << "1. 파워샷! ( 민 x 공격력 , 마나 10 ) " << std::endl;
+		std::cout << "2 .필살 파워샷 ! ( 민 x 공격력 + 50 , 마나 50 )  " << std::endl;
+		std::cout << "3. 궁극 파워샷 ! ( 민 x 공격력 + 500  , 마나 100)  " << std::endl;
+		std::cout << "4. 나가기 " << std::endl;
+		std::cout << "현재 MP : " << GetMp() << std::endl;
+		while (1)
+		{
+			std::cout << "어떤 스킬을 사용하시겠습니까? ( 1 ~4 ) :";
+			std::cin >> iPlayerSelect;
+
+			if (1 == iPlayerSelect)
+			{
+				if (10 > GetMp())
+				{
+					std::cout << "마나가 부족 합니다.." << std::endl;
+					GameSystem::GetInstance()->StdCinClear();
+
+					continue;
+				}
+				break;
+
+			}
+			else if (2 == iPlayerSelect)
+			{
+				if (50 > GetMp())
+				{
+					std::cout << "마나가 부족 합니다.." << std::endl;
+					GameSystem::GetInstance()->StdCinClear();
+
+					continue;
+				}
+				break;
+
+			}
+			else if (3 == iPlayerSelect)
+			{
+				if (100 > GetMp())
+				{
+					std::cout << "마나가 부족 합니다.." << std::endl;
+					GameSystem::GetInstance()->StdCinClear();
+
+					continue;
+				}
+				break;
+
+			}
+			else if (4 == iPlayerSelect)
+			{
+				std::cout << "선택창으로 이동 합니다." << std::endl;
+				break;
+			}
+			else
+			{
+				std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요! " << std::endl;
+				GameSystem::GetInstance()->StdCinClear();
+
+				continue;
+			}
+		}
+	}
+	else if (GetjobType() == eJobType::WIZARD)
+	{
+
+		std::cout << "1. 파이어볼! ( 지 x 공격력 , 마나 10 ) " << std::endl;
+		std::cout << "2 . 아이스볼! ( 지 x 공격력 + 50 , 마나 50 )  " << std::endl;
+		std::cout << "3. 메테오 ! ( 지 x 공격력 + 500 , 마나 100)  " << std::endl;
+		std::cout << "4. 나가기 " << std::endl;
+		std::cout << "현재 MP : " << GetMp() << std::endl;
+		while (1)
+		{
+			std::cout << "어떤 스킬을 사용하시겠습니까? ( 1 ~4 ) :";
+			std::cin >> iPlayerSelect;
+
+			if (1 == iPlayerSelect)
+			{
+				if (10 > GetMp())
+				{
+					std::cout << "마나가 부족 합니다.." << std::endl;
+					GameSystem::GetInstance()->StdCinClear();
+
+					continue;
+				}
+				break;
+			}
+			else if (2 == iPlayerSelect)
+			{
+				if (50 > GetMp())
+				{
+					std::cout << "마나가 부족 합니다.." << std::endl;
+					GameSystem::GetInstance()->StdCinClear();
+
+					continue;
+				}
+				break;
+
+			}
+			else if (3 == iPlayerSelect)
+			{
+				if (100 > GetMp())
+				{
+					std::cout << "마나가 부족 합니다.." << std::endl;
+					GameSystem::GetInstance()->StdCinClear();
+
+					continue;
+				}
+				break;
+
+			}
+			else if (4 == iPlayerSelect)
+			{
+				std::cout << "선택창으로 이동 합니다." << std::endl;
+				break;
+			}
+			else
+			{
+				std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요! " << std::endl;
+				GameSystem::GetInstance()->StdCinClear();
+
+				continue;
+			}
+		}
+	}
+
+	return iPlayerSelect;
+	
+}
+
+int Player::SkillDamge(int iSelectSkill)
+{
+	int iSkillDamage = 0;
+
+	if (GetjobType() == eJobType::WARRIOR)
+	{
+		if (1 == iSelectSkill)
+		{
+			std::cout << "1. 스매쉬! ~ 발동!" << std::endl;
+
+			SetMp(GetMp() - 10);
+			iSkillDamage = GetAttackPoint() * GetStr();
+		}
+		else if (2 == iSelectSkill)
+		{
+			std::cout << "2. 필살 스매쉬 ! ~ 발동!  " << std::endl;
+			SetMp(GetMp() - 50);
+			iSkillDamage = GetAttackPoint() * GetStr() + 50;
+
+		}
+		else if (3 == iSelectSkill)
+		{
+			std::cout << "3. 궁극 스매쉬 !  ~ 발동! " << std::endl;
+			SetMp(GetMp() - 100);
+			iSkillDamage = GetAttackPoint() * GetStr() + 500;
+		}
+	}
+	else if (GetjobType() == eJobType::ARCHER)
+	{
+		if (1 == iSelectSkill)
+		{
+			std::cout << "1. 파워샷! ~ 발동 !" << std::endl;
+			SetMp(GetMp() - 10);
+			iSkillDamage = GetAttackPoint() * GetDex();
+		}
+		else if (2 == iSelectSkill)
+		{
+			std::cout << "2 .필살 파워샷 !  ~ 발동 !  " << std::endl;
+			SetMp(GetMp() - 50);
+			iSkillDamage = GetAttackPoint() * GetDex() + 50;
+
+		}
+		else if (3 == iSelectSkill)
+		{
+
+			std::cout << "3. 궁극 파워샷 !  ~ 발동 !  " << std::endl;
+			SetMp(GetMp() - 100);
+			iSkillDamage = GetAttackPoint() * GetDex() + 500;
+		}
+	}
+	else if (GetjobType() == eJobType::WIZARD)
+	{
+		if (1 == iSelectSkill)
+		{
+			std::cout << "1. 파이어볼 ~ 발동 ! " << std::endl;
+			SetMp(GetMp() - 10);
+			iSkillDamage = GetAttackPoint() * GetInt();
+		}
+		else if (2 == iSelectSkill)
+		{
+			std::cout << "2 . 아이스볼 ~ 발동 ! " << std::endl;
+			SetMp(GetMp() - 50);
+			iSkillDamage = GetAttackPoint() * GetInt() + 50;
+
+		}
+		else if (3 == iSelectSkill)
+		{
+			
+			std::cout << "3. 메테오 ~ 발동 ! " << std::endl;
+			SetMp(GetMp() - 100);
+			iSkillDamage = GetAttackPoint() * GetInt() + 500;
+		}
+	}
+	return iSkillDamage;
+	
+}
+
+void Player::DrinkingPoseon()
+{
+	system("cls");
+	if (0 == GameSystem::GetInstance()->GetPoseonInventory().size())
+	{
+		std::cout << "가방에 포션이 없습니다.. " << std::endl;
+		return;
+	}
+	
+	int iInvenPosenSize = GameSystem::GetInstance()->GetPoseonInventory().size();
+	std::cout << "========================================================" << std::endl;
+
+	InventoryPoseonView();
+	std::cout << "========================================================" << std::endl;
+
+	int i = 1;
+
+	bool isSelect = false ;
+
+	std::list<sData> lPosean = GameSystem::GetInstance()->GetPoseonInventory();
+	std::list<sData>::iterator it;
+	std::list<sData>::iterator itBegin = lPosean.begin();
+	std::list<sData>::iterator itEnd = lPosean.end();
+
+	while (false == isSelect)
+	{
+		std::cout << "포션을 선택해 주세요 (0: 나가기 ) : ";
+		std::cin >> iPlayerSelect;
+
+		if (0 == iPlayerSelect)
+		{
+			isSelect = true;
+			break;
+		}
+		else if (std::cin.fail() ||
+			0 > iPlayerSelect || iInvenPosenSize < iPlayerSelect)
+		{
+			std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요 !" << std::endl;
+			GameSystem::GetInstance()->StdCinClear();
+
+			continue;
+		}
+
+		
+
+		for (it = itBegin; it != itEnd; it++, i++)
+		{
+			if (iPlayerSelect == i)
+			{
+				std::cout << "아이템을 사용했습니다. " << std::endl;
+				if (GetMaxHp() > GetHp() + it->iHpInfo)
+				{
+					SetHp(GetMaxHp());
+				}
+				else
+				{
+					SetHp(GetHp() + it->iHpInfo);
+				}
+				if (GetMaxMp() > GetHp() + it->iHpInfo)
+				{
+					SetMp(GetMaxMp());
+				}
+				else
+				{
+					SetMp(GetMp() + it->iMpInfo);
+
+				}
+				SetLv(GetLv() + it->iLevelUpInfo);
+				it = lPosean.erase(it);
+				break;
+			}
+		}
+
+		if (0 == GameSystem::GetInstance()->GetPoseonInventory().size())
+		{
+			std::cout << "가방에 포션이 없습니다.. " << std::endl;
+			isSelect = true;
+		}
+
+	}
+	
+
+	
+
+
+}
+

@@ -22,4 +22,5 @@ public:
 public:
 	void ChangeScene(eScene sceneType, int _index);
 	void Update();
+	void Release();
 };

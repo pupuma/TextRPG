@@ -14,7 +14,6 @@ private:
 	int iRand;
 	int pargraphCount;
 	int iBranch;
-	int iSelect;
 
 	bool isQuit;
 	sParagraph* paragraphList;

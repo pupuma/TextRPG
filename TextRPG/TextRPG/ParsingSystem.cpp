@@ -417,3 +417,126 @@ void ParsingSystem::SetDataInit(sData* _data,int iItemCode,eItemType itemType,st
 		break;
 	}
 }
+
+void ParsingSystem::PlayerParsing(const char * fileName, Character * _player, bool* _isLoad)
+{
+	std::ifstream inFile(fileName);
+
+	std::queue<std::string> q_data;
+	std::string sBuffer;
+	std::string sRecord;
+	std::string textString;
+	int iIndex = 0;
+	std::string sName;
+	eJobType eJob;
+	int iLv = 0;
+	int iHp = 0;
+	int iMp = 0;
+	int iAttackPoint = 0;
+	int iDefPoint = 0;
+	int iStr = 0;
+	int iDex = 0;
+	int iInt = 0;
+	int iGold = 0;
+
+	if (!inFile.is_open())
+	{
+		std::cout << "File is Not Read" << std::endl;
+		return;
+	}
+
+	while (getline(inFile, sBuffer))
+	{
+		q_data.push(sBuffer);
+	}
+	*_isLoad = true;
+	q_data.pop();
+
+	while (!q_data.empty())
+	{
+		sRecord = q_data.front().substr(0, q_data.front().size());
+
+		//
+		iIndex = sRecord.find(",");
+		textString = sRecord.substr(0, iIndex);
+		sName = textString;
+		sRecord = sRecord.substr(iIndex + 1, sRecord.size());
+
+		//
+		iIndex = sRecord.find(",");
+		textString = sRecord.substr(0, iIndex);
+		eJob = (eJobType)stoi(textString);
+		sRecord = sRecord.substr(iIndex + 1, sRecord.size());
+
+		//
+		iIndex = sRecord.find(",");
+		textString = sRecord.substr(0, iIndex);
+		iLv = stoi(textString);
+		sRecord = sRecord.substr(iIndex + 1, sRecord.size());
+
+
+		//
+		iIndex = sRecord.find(",");
+		textString = sRecord.substr(0, iIndex);
+		iHp = stoi(textString);
+		sRecord = sRecord.substr(iIndex + 1, sRecord.size());
+
+
+		//
+		iIndex = sRecord.find(",");
+		textString = sRecord.substr(0, iIndex);
+		iMp = stoi(textString);
+		sRecord = sRecord.substr(iIndex + 1, sRecord.size());
+
+
+		//
+		iIndex = sRecord.find(",");
+		textString = sRecord.substr(0, iIndex);
+		iAttackPoint = stoi(textString);
+		sRecord = sRecord.substr(iIndex + 1, sRecord.size());
+
+		//
+		iIndex = sRecord.find(",");
+		textString = sRecord.substr(0, iIndex);
+		iDefPoint = stoi(textString);
+		sRecord = sRecord.substr(iIndex + 1, sRecord.size());
+		//
+		iIndex = sRecord.find(",");
+		textString = sRecord.substr(0, iIndex);
+		iStr = stoi(textString);
+		sRecord = sRecord.substr(iIndex + 1, sRecord.size());
+		//
+		iIndex = sRecord.find(",");
+		textString = sRecord.substr(0, iIndex);
+		iDex = stoi(textString);
+		sRecord = sRecord.substr(iIndex + 1, sRecord.size());
+		//
+		iIndex = sRecord.find(",");
+		textString = sRecord.substr(0, iIndex);
+		iInt = stoi(textString);
+		sRecord = sRecord.substr(iIndex + 1, sRecord.size());
+
+		//
+		iIndex = sRecord.find(",");
+		textString = sRecord.substr(0, iIndex);
+		iGold = stoi(textString);
+		sRecord = sRecord.substr(iIndex + 1, sRecord.size());
+		
+		//
+		_player->SetName(sName);
+		_player->SetJob(eJob);
+		_player->SetLevel(iLv);
+		_player->SetHp(iHp);
+		_player->SetMp(iMp);
+		_player->SetAttackPoint(iAttackPoint);
+		_player->SetDefensePoint(iDefPoint);
+		_player->SetStr(iStr);
+		_player->SetDex(iDex);
+		_player->SetInt(iInt);
+		_player->SetGold(iGold);
+
+		q_data.pop();
+	}
+
+
+}

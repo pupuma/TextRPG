@@ -7,7 +7,6 @@ class Monster
 {
 private:
 	std::string sMonsterName;
-	int iExp;
 public:
 	Monster();
 	~Monster();
@@ -31,5 +30,8 @@ public:
 
 	int GetExp() { return iExp; }
 	void SetExp(int _exp) { iExp = _exp; }
+public:
+	void DecreaseHP(int _attackPoint);
+
 };
 

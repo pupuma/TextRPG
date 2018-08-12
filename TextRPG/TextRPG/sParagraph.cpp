@@ -1,4 +1,5 @@
 #include "sParagraph.h"
+
 #include "sString.h"
 
 
@@ -38,7 +39,5 @@ void sParagraph::Process(int* _branch,eScene _type, bool* isQuit)
 	{
 		_currentNode->Process(_branch,_type ,isQuit);
 		_currentNode = _currentNode->nextNode;
-
-
 	}
 }

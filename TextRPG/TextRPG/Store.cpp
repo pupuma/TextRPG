@@ -1,10 +1,12 @@
 #include "Store.h"
+
 #include "Character.h"
 
 
 
 Store::Store()
 {
+	iPlayerSelect = 0;
 	m_StoreType = eStoreType::DEFAULT;
 }
 

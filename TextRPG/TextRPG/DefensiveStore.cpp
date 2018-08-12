@@ -1,4 +1,5 @@
 #include "DefensiveStore.h"
+
 #include "Character.h"
 #include "Item.h"
 
@@ -63,10 +64,8 @@ void DefensiveStore::ItemSale(Character *_character, bool * _isQuit)
 void DefensiveStore::SelectSaleItem(Character* _character)
 {
 	bool isQuit = false;
-	int iPlayerSelect = 0;
 	int iSaleGold = 0;
 	int iPlayerGold = _character->GetGold();
-	char chText;
 	while (false == isQuit)
 	{
 		std::cout << "어느 아이템을 판매하겠습니까?? " << std::endl;
@@ -85,8 +84,8 @@ void DefensiveStore::SelectSaleItem(Character* _character)
 		if (0 == iPlayerSelect || iPlayerSelect > _character->GetInventorySize())
 		{
 			std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요 " << std::endl;
-			std::cin.clear();
-			std::cin.ignore();
+			GameSystem::GetInstance()->StdCinClear();
+
 			continue;
 		}
 		else
@@ -114,8 +113,8 @@ void DefensiveStore::SelectSaleItem(Character* _character)
 			else
 			{
 				std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요 " << std::endl;
-				std::cin.clear();
-				std::cin.ignore();
+				GameSystem::GetInstance()->StdCinClear();
+
 				continue;
 			}
 		}
@@ -129,7 +128,6 @@ void DefensiveStore::EnterStore(Character* _character)
 	system("cls");
 
 	bool isQuit = false;
-	int iSelectNumber = 0;
 
 	while (false == isQuit)
 	{
@@ -138,25 +136,25 @@ void DefensiveStore::EnterStore(Character* _character)
 		ItemPrint(&iItemIndex);
 		std::cout << "현재 플레이어 골드 : " << _character->GetGold() << std::endl;
 		std::cout << "1. 구매 / 2 판매 / 3 나가기 :  ";
-		std::cin >> iSelectNumber;
+		std::cin >> iPlayerSelect;
 
-		if (1 == iSelectNumber)
+		if (1 == iPlayerSelect)
 		{
 			PurchaseStore(_character, &isQuit, iItemIndex);
 		}
-		else if (2 == iSelectNumber)
+		else if (2 == iPlayerSelect)
 		{
 			ItemSale(_character, &isQuit);
 		}
-		else if (3 == iSelectNumber)
+		else if (3 == iPlayerSelect)
 		{
 			isQuit = true;
 		}
 		else
 		{
 			std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요 " << std::endl;
-			std::cin.clear();
-			std::cin.ignore();
+			GameSystem::GetInstance()->StdCinClear();
+
 			continue;
 		}
 	}
@@ -166,19 +164,18 @@ void DefensiveStore::EnterStore(Character* _character)
 
 void DefensiveStore::PurchaseStore(Character* _character, bool* _isQuit, int iItemIndex)
 {
-	int iSelectNumber = 0;
 	bool isQuit = false;
 	while (false == isQuit)
 	{
 		std::cout << "어느 아이템을 구매하겠습니까?? " << std::endl;
 		std::cout << "번호 ? ";
-		std::cin >> iSelectNumber;
+		std::cin >> iPlayerSelect;
 
-		if (0 > iSelectNumber || iItemIndex < iSelectNumber)
+		if (0 > iPlayerSelect || iItemIndex < iPlayerSelect)
 		{
 			std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요 " << std::endl;
-			std::cin.clear();
-			std::cin.ignore();
+			GameSystem::GetInstance()->StdCinClear();
+
 			continue;
 		}
 
@@ -186,7 +183,7 @@ void DefensiveStore::PurchaseStore(Character* _character, bool* _isQuit, int iIt
 
 		for (it = defenseItemList.begin(); it != defenseItemList.end(); it++, i++)
 		{
-			if (iSelectNumber == i)
+			if (iPlayerSelect == i)
 			{
 				if (_character->GetGold() >= it->iPrice)
 				{
@@ -213,7 +210,6 @@ void DefensiveStore::PurchaseStore(Character* _character, bool* _isQuit, int iIt
 				}
 			}
 		}
-		char chText;
 
 		while (1)
 		{
@@ -234,8 +230,8 @@ void DefensiveStore::PurchaseStore(Character* _character, bool* _isQuit, int iIt
 			else
 			{
 				std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요 " << std::endl;
-				std::cin.clear();
-				std::cin.ignore();
+				GameSystem::GetInstance()->StdCinClear();
+
 				continue;
 			}
 		}

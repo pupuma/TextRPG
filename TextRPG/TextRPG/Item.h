@@ -33,7 +33,6 @@ public:
 	~Item();
 public:
 	void SetItemMap(int _index, int _iTemCode, eItemType _type, std::string _name, int _price);
-	void ItemListPrint();
-	void ItemListClear();
+	void Release();
 	
 };

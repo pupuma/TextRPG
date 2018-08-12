@@ -1,16 +1,18 @@
 #include "GameSystem.h"
 
+#include <iostream>
+#include <conio.h>
+#include <ostream>
+#include <fstream>
+
 #include "ParsingSystem.h"
 #include "Player.h"
 
-#include <iostream>
-
 GameSystem* GameSystem::_instance = 0;
-
-
 
 GameSystem::GameSystem()
 {
+	iPlayerSelect = 0;
 }
 
 
@@ -25,6 +27,33 @@ GameSystem* GameSystem::GetInstance()
 		_instance = new GameSystem();
 	}
 	return _instance;
+}
+
+void GameSystem::InitPosen(Character* _player)
+{
+	
+	std::list<std::pair< std::string, int>> listIventory = _player->GetInventory();
+
+	std::list<std::pair< std::string, int>>::iterator iter;
+	std::list<std::pair< std::string, int>>::iterator iterBegin = listIventory.begin();
+	std::list<std::pair< std::string, int>>::iterator iterEnd = listIventory.end();
+
+
+	std::vector<sData>::iterator itPosen;
+
+	for (iter = iterBegin; iter != iterEnd; iter++)
+	{
+		for (itPosen = vRecveryInfo.begin(); itPosen != vRecveryInfo.end(); itPosen++)
+		{
+			if (iter->first == itPosen->sNameInfo)
+			{
+				lPoseonInventory.push_back(*itPosen);
+			}
+		}
+
+	}
+	
+
 }
 
 void GameSystem::CharacterCreate(eCharacterType type)
@@ -65,7 +94,7 @@ void GameSystem::FindinventoryInfoView(std::list<std::pair<std::string, int>>* v
 
 	int i = 1;
 	bool isWear = false;
-	std::cout << "======번호=====아이템명====착용=====정보====" << std::endl;
+	std::cout << "======번호=====아이템명=============정보====" << std::endl;
 
 	switch (_iSelect)
 	{
@@ -77,7 +106,7 @@ void GameSystem::FindinventoryInfoView(std::list<std::pair<std::string, int>>* v
 			{
 				if (it->first == iter->sNameInfo)
 				{
-					std::cout << " [ " << i << " ] " << " [ " << it->first << " ] " << " [ " << isWear << " ] " <<
+					std::cout << " [ " << i << " ] " << " [ " << it->first << " ] " << 
 						" [ " << iter->iHpInfo << " ] " << " [ " << iter->iMpInfo << " ] " <<
 						" [ " << iter->iLevelUpInfo << " ] " << " [ " << iter->sTextInfo << " ] " << std::endl;
 				}
@@ -124,9 +153,12 @@ void GameSystem::FindinventoryInfoView(std::list<std::pair<std::string, int>>* v
 		break;
 	}
 
+	system("pause");
 	std::string sName;
-	char chText;
 	bool _isQuit = false;
+
+
+
 	if (2 == _iSelect)
 	{
 		while (false == _isQuit)
@@ -175,8 +207,8 @@ void GameSystem::FindinventoryInfoView(std::list<std::pair<std::string, int>>* v
 			else
 			{
 				std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요 " << std::endl;
-				std::cin.clear();
-				std::cin.ignore();
+				StdCinClear();
+
 				continue;
 			}
 		}
@@ -227,8 +259,8 @@ void GameSystem::FindinventoryInfoView(std::list<std::pair<std::string, int>>* v
 			else
 			{
 				std::cout << "잘못된 값을 입력했습니다. 다시 입력해 주세요 " << std::endl;
-				std::cin.clear();
-				std::cin.ignore();
+				StdCinClear();
+
 				continue;
 			}
 		}
@@ -236,7 +268,7 @@ void GameSystem::FindinventoryInfoView(std::list<std::pair<std::string, int>>* v
 	system("cls");
 }
 
-void GameSystem::CollisionEvent(Character * _player, Character* _monster, int _rand, int* nextBranch, bool* isQuit)
+void GameSystem::CollisionEvent(Character* _player, Character* _monster, int _rand, int* nextBranch, bool* isQuit)
 {
 	if (0 == _rand)
 	{
@@ -260,23 +292,253 @@ void GameSystem::CollisionEvent(Character * _player, Character* _monster, int _r
 	std::cout << "방어력 : " << _player->GetDefensePoint() << std::endl;
 	std::cout << "====================================" << std::endl;
 
-	char chText;
 	while (1)
 	{
+
 		std::cout << _monster->GetName() << " 와 전투를 하시겠습니까? ( Y / N )  " << std::endl;
 		std::cin >> chText;
-		if ('Y ' == chText || 'Y' == chText)
+		if ('y' == chText || 'Y' == chText)
 		{
 			// 전투
-			Battle(_player, _monster);
-			
+			Battle(_player, _monster, nextBranch, isQuit);
+			break;
+			*nextBranch = 4;
 		}
 		else if ('n' == chText || 'N' == chText)
 		{
-			*nextBranch = 10;
+			*nextBranch = 0;
 			break;
 		}
-	
 	}
+	system("cls");
 
+}
+
+
+void GameSystem::Battle(Character* _player, Character* _monster, int* nextBranch, bool* isQuit)
+{
+	system("cls");
+	int iPlayerHp = _player->GetHp();
+	bool isBattle = true;
+	while (true == isBattle)
+	{
+		// 행동 
+		std::cout << "================= Monster ================" << std::endl;
+		std::cout << "이름 : " << _monster->GetName() << std::endl;
+		std::cout << "체력 : " << _monster->GetHp() << std::endl;
+		std::cout << "공격력 : " << _monster->GetAttackPoint() << std::endl;
+		std::cout << "방어력 : " << _monster->GetDefensePoint() << std::endl;
+		std::cout << "====================================" << std::endl;
+		std::cout << "------------------------------------------" << std::endl;
+		std::cout << "================= Plaer ================" << std::endl;
+		std::cout << "====================================" << std::endl;
+		std::cout << "레벨 : " << _player->GetLv() << std::endl;
+		std::cout << "체력 : " << _player->GetHp() << std::endl;
+		std::cout << "공격력 : " << _player->GetAttackPoint() << std::endl;
+		std::cout << "방어력 : " << _player->GetDefensePoint() << std::endl;
+		std::cout << "====================================" << std::endl;
+
+		std::cout << "1. 공격 , 2. 스킬 , 3. 포션 , 4. 도망가기 ";
+		std::cin >> iPlayerSelect;
+		int iSkillDamage = 0;
+		switch (iPlayerSelect)
+		{
+		case 1:
+			{
+				if (_player->GetDex() > (_monster->GetAttackPoint() / 10))
+				{
+					// Skill 
+					std::cout << "플레이어가 공격 ! " << std::endl;
+					_monster->DecreaseHP(_player->GetAttackPoint());
+					_getch();
+
+					if (_monster->GetHp() <= 0)
+					{
+						_player->IncreaseExp(_monster);
+						std::cout << "플레이어가 승리 하였습니다.." << std::endl;
+						_getch();
+						isBattle = false;
+						break;
+					}
+
+					if (_player->GetHp() <= 0)
+					{
+						_player->Reset(iPlayerHp);
+						std::cout << "플레이어가 패배 하였습니다.." << std::endl;
+						_getch();
+						*nextBranch = 11;
+						isBattle = false;
+						break;
+
+					}
+					std::cout << "몬스터가 공격 ! " << std::endl;
+					_player->DecreaseHP(_monster->GetAttackPoint());
+					_getch();
+
+					
+				}
+				else
+				{
+
+					std::cout << "몬스터가 공격 ! " << std::endl;
+					_player->DecreaseHP(_monster->GetAttackPoint());
+					_getch();
+
+					if (_player->GetHp() <= 0)
+					{
+						_player->Reset(iPlayerHp);
+						std::cout << "플레이어가 패배 하였습니다.." << std::endl;
+						*nextBranch = 11;
+						_getch();
+						isBattle = false;
+						break;
+
+					}
+					std::cout << "플레이어가 공격 ! " << std::endl;
+					_monster->DecreaseHP(_player->GetAttackPoint());
+					_getch();
+
+					if (_monster->GetHp() <= 0)
+					{
+						std::cout << "플레이어가 승리 하였습니다.." << std::endl;
+						_getch();
+						isBattle = false;
+						break;
+
+					}
+				}
+			}
+		break;
+		case 2:
+		{
+			int iSelectSkill = _player->Skill();
+
+			if (4 == iSelectSkill)
+			{
+				break;
+			}
+			else
+			{
+				iSkillDamage = _player->SkillDamge(iSelectSkill);
+			}
+
+			if (_player->GetDex() > (_monster->GetAttackPoint() / 10))
+			{
+				_monster->DecreaseHP(_player->GetAttackPoint() + iSkillDamage);
+				_getch();
+
+				if (_monster->GetHp() <= 0)
+				{
+					_player->IncreaseExp(_monster);
+					std::cout << "플레이어가 승리 하였습니다.." << std::endl;
+					_getch();
+
+					isBattle = false;
+					break;
+
+				}
+				_player->DecreaseHP(_monster->GetAttackPoint());
+				_getch();
+
+				if (_player->GetHp() <= 0)
+				{
+					_player->Reset(iPlayerHp);
+					std::cout << "플레이어가 패배 하였습니다.." << std::endl;
+					_getch();
+
+					*nextBranch = 11;
+					isBattle = false;
+					break;
+
+				}
+			}
+			else
+			{
+				_player->DecreaseHP(_monster->GetAttackPoint());
+				_getch();
+
+				if (_player->GetHp() <= 0)
+				{
+					_player->Reset(iPlayerHp);
+					std::cout << "플레이어가 패배 하였습니다.." << std::endl;
+					_getch();
+
+					*nextBranch = 11;
+					isBattle = false;
+					break;
+
+				}
+				_monster->DecreaseHP(_player->GetAttackPoint() + iSkillDamage);
+				_getch();
+
+				if (_monster->GetHp() <= 0)
+				{
+					std::cout << "플레이어가 승리 하였습니다.." << std::endl;
+					_getch();
+
+					isBattle = false;
+					break;
+
+				}
+			}
+		}
+		break;
+
+		case 3:
+			_player->DrinkingPoseon();
+			break;
+
+		case 4:
+			isBattle = false;
+			std::cout << "도망갔습니다.." << std::endl;
+			_getch();
+
+			break;
+
+		default:
+			std::cout << "잘못된 값을 입력 했습니다. 다시 입력해 주세요 .." << std::endl;
+			StdCinClear();
+
+			break;
+		}
+		
+		system("cls");
+	}
+	
+}
+
+void GameSystem::Save(Character* _player)
+{
+	system("cls");
+	std::cout << "저장했습니다!!" << std::endl;
+	system("pause");
+
+	std::ofstream outFile("Player.dat", std::ofstream::out | std::ios::trunc);
+	outFile << "Name,Job,Lv,Hp,Mp,AttackPoint,DefPoint,Str,Dex,Int,Gold" << std::endl;
+	outFile << _player->GetName() << "," << _player->GetjobType()<< "," << _player->GetLv() << "," << 
+		_player->GetHp()<<","<< _player->GetMp() << "," <<_player->GetAttackPoint() << ","
+		<< _player->GetDefensePoint() << "," << _player->GetStr() << "," << _player->GetDex() << "," <<
+		_player->GetInt() << "," << _player->GetGold();
+	outFile.close();
+	system("cls");
+
+}
+
+void GameSystem::Load(bool* _isLoad)
+{
+	Character* _player = GetCharacter();
+	_parser->PlayerParsing("Player.dat", _player, _isLoad);
+
+}
+
+void GameSystem::StdCinClear()
+{
+	std::cin.clear();
+	std::cin.ignore();
+}
+
+void GameSystem::Release()
+{
+	delete _character;
+	delete _instance;
 }

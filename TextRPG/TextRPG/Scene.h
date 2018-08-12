@@ -5,6 +5,9 @@ class Scene
 {
 protected:
 	eScene sceneType;
+	
+	int iPlayerSelect;
+	char chText;
 
 public:
 	Scene();

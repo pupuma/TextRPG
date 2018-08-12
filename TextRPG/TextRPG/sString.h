@@ -1,5 +1,7 @@
 #pragma once
+
 #include <string>
+
 #include "SceneManager.h"
 
 enum eStringType
@@ -19,6 +21,10 @@ private:
 	std::string m_Text;
 	eStringType m_Type;
 	int m_Line;
+protected:
+	int iPlayerSelect;
+	char chText;
+
 public:
 	sString();
 	~sString();

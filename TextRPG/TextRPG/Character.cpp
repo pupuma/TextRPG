@@ -21,6 +21,9 @@ Character::~Character()
 void Character::Init(int _number, Character * _charater)
 {
 }
+void Character::Init(int _number)
+{
+}
 
 void Character::SetName(std::string _name)
 {
@@ -48,6 +51,7 @@ int Character::DeleteInventoryItem(int iPlayerSelect)
 {
 	return 0;
 }
+
 
 
 void Character::CharacterWear(sEquipment* _eq, std::string sName, int _iSelect)

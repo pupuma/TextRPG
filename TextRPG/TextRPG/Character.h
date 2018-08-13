@@ -4,6 +4,7 @@
 
 #include "Item.h"
 
+// 직업
 enum eJobType
 {
 	NONE,
@@ -20,7 +21,7 @@ struct sEquipment
 	std::string sPantsGear;
 	std::string sShoesGear;
 
-	//
+	// 착용 여부 
 	bool IsHeadGear = false;
 	bool IsChestGear = false;
 	bool IsPantsGear = false;
@@ -30,7 +31,7 @@ struct sEquipment
 	std::string sRighthandGear;
 	std::string sLeftHandGear;
 
-	//
+	// 착용 여부
 	bool IsRighthandGear = false;
 	bool IsLeftHandGear = false;
 };
@@ -46,7 +47,9 @@ protected:
 	int iGold;
 	int iExp;
 	bool isLive;
+	eJobType ejob;
 protected:
+	// 인벤토리 
 	std::list<std::pair< std::string, int>> vInventory;
 public:
 	Character();
@@ -55,15 +58,14 @@ public:
 	virtual std::list<std::pair< std::string, int>> GetInventory() { return vInventory; }
 public:
 	virtual void Init(int _number, Character* _charater);
+	virtual void Init(int _number);
 	virtual void SetName(std::string _name);
 	virtual void AddInventory(std::list<Item>::iterator& it);
 	virtual void InventoryView();
 	virtual void PlayerState();
-
 	virtual int GetInventorySize();
 	virtual int DeleteInventoryItem(int iPlayerSelect);
 public:
-	virtual void Init(int _number) = 0;
 	virtual void SetGold(int _gold) = 0;
 
 	virtual int GetGold() = 0;
@@ -76,7 +78,7 @@ public:
 	virtual int GetMp() { return iMp; }
 	virtual int GetAttackPoint() { return iAttackPoint; }
 	virtual int GetDefensePoint() { return iDefensePoint; }
-	virtual eJobType GetjobType() { return (eJobType)0; }
+	virtual eJobType GetjobType() { return (eJobType)ejob; }
 	virtual int GetLv() { return 0; }
 	virtual int GetStr() { return 0; }
 	virtual int GetDex() { return 0; }

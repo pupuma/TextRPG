@@ -126,7 +126,7 @@ void GameSystem::FindinventoryInfoView(std::list<std::pair<std::string, int>>* v
 					{
 						std::cout << " [ 번호 : " << i << " ] " << " [ 이름 : " << it->first << " ] "  <<
 							" [ 공격력 : " << iter->iAttackPointInfo << " ] " << " [ 방어력 :" << iter->iDefensiveInfo << " ] " <<
-							" [ 착용 레벨 : " << iter->iLevelUpInfo << " ] " << " [ 정보 : " << iter->sTextInfo << " ] " << std::endl;
+							" [ 착용 레벨 : " << iter->iLvInfo << " ] " << " [ 정보 : " << iter->sTextInfo << " ] " << std::endl;
 					}
 				}
 			}
@@ -194,6 +194,12 @@ void GameSystem::FindinventoryInfoView(std::list<std::pair<std::string, int>>* v
 										break;
 									}
 
+								}
+								else if(_character->GetLv() <= iter->iLvInfo)
+								{
+									std::cout << "레벨이 딸려서 착용이 불가능 합니다...." << std::endl;
+									_getch();
+									break;
 								}
 							}
 						}
@@ -287,7 +293,7 @@ void GameSystem::CollisionEvent(Character* _player, Character* _monster, int _ra
 	std::cout << "방어력 : " << _monster->GetDefensePoint() << std::endl;
 	std::cout << "====================================" << std::endl;
 	std::cout << "------------------------------------------" << std::endl;
-	std::cout << "================= Plaer ================" << std::endl;
+	std::cout << "================= Player ================" << std::endl;
 	std::cout << "====================================" << std::endl;
 	std::cout << "레벨 : " << _player->GetLv() << std::endl;
 	std::cout << "체력 : " << _player->GetHp() << std::endl;

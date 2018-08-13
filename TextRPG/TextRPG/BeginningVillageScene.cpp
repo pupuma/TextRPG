@@ -35,6 +35,7 @@ void BeginningVillageScene::Init(int _index)
 {
 	system("cls");
 
+
 }
 
 void BeginningVillageScene::Update()
@@ -111,12 +112,13 @@ void BeginningVillageScene::InitVillage(int iRandom)
 {
 	pargraphCount = 0;
 	paragraphList = parser->CSVParsing("BeginningVillage.csv", &pargraphCount);
-	SetSceneType(eScene::SCENE_CREATECHACTER);
+	SetSceneType(eScene::SCENE_VILLAGE);
 	VillageUpdate(iRandom);
 }
 
 void BeginningVillageScene::VillageUpdate(int iRandom)
 {
+	system("cls");
 	while (false == isQuit)
 	{
 		iRandom = rand() % 10;
@@ -139,6 +141,8 @@ void BeginningVillageScene::VillageUpdate(int iRandom)
 
 	}
 
+	isQuit = false;
+	iBranch = 0;
 	system("cls");
 }
 

@@ -5,6 +5,7 @@
 
 Player::Player()
 {
+	// 초기화 
 	iPlayerSelect = 0;
 	iGold = 1000;
 	iInvenSize = 0;
@@ -27,6 +28,7 @@ void Player::SetName(std::string _name)
 
 void Player::Init(int _number)
 {
+	// 직업 초기화 
 	switch ((eJobType)_number)
 	{
 	case eJobType::WARRIOR:
@@ -61,7 +63,6 @@ void Player::ArcherInit(eJobType type)
 
 void Player::WizardInit(eJobType type)
 {
-
 	jobType = type;
 	iLv = 1;
 	iStr = 5;
@@ -71,6 +72,7 @@ void Player::WizardInit(eJobType type)
 
 void Player::AddInventory(std::list<Item>::iterator& it)
 {
+	 // 인벤토리 추가 ( 30 까지 제한)  
 	if (iInvenSize > 30)
 	{
 		std::cout << " 가방의 크기를 초과 했습니다! " << std::endl;
@@ -186,14 +188,17 @@ int Player::DeleteInventoryItem(std::string _name)
 	int iIndex = 1;
 	for (it = vInventory.begin(); it != vInventory.end(); it++, iIndex++)
 	{
-		if (it->first == _name )
-		{
-			vInventory.pop_back();
-		}
 		if (0 == vInventory.size())
 		{
 			break;
 		}
+
+		if (it->first == _name )
+		{
+			vInventory.pop_back();
+			break;
+		}
+		
 
 	}
 
@@ -244,7 +249,6 @@ void Player::CharacterInfo()
 	Update();
 	std::cout << "=======================================" << std::endl;
 	std::cout << "PlayerName : " << sPlayerName <<std::endl;
-	//std::cout << "       JOB : " << GetjobType() << std::endl;
 	switch (GetjobType())
 	{
 	case eJobType::WARRIOR:
@@ -478,7 +482,7 @@ void Player::StateUp()
 	}
 }
 
-void Player::CharacterWear(sEquipment* _eq,std::string sName, int _iSelect)
+void Player::CharacterWear(sEquipment* _eq, std::string sName, int _iSelect)
 {
 
 	int iHandSelect;
@@ -1047,7 +1051,6 @@ void Player::DrinkingPoseon()
 			continue;
 		}
 
-		
 
 		for (it = itBegin; it != itEnd; it++, i++)
 		{

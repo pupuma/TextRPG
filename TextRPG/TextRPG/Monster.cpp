@@ -4,11 +4,12 @@
 
 Monster::Monster()
 {
-	iHp = 100;
-	iAttackPoint = 10;
-	iDefensePoint = 10;
-	iGold = 100;
-	iExp = 10;
+	// 초기화 
+	iMHp = 100;
+	iMAttackPoint = 10;
+	iMDefensePoint = 10;
+	iMGold = 100;
+	iMExp = 10;
 }
 
 
@@ -26,8 +27,9 @@ void Monster::Init(int _number)
 }
 
 
-void Monster::Init(int _number, Character * _player)
+void Monster::Init(int _number, Character* _player)
 {
+	// 호출 시 몬스터 초기화 
 	switch (_number)
 	{
 	case 1:
@@ -127,6 +129,7 @@ void Monster::Update()
 
 void Monster::DecreaseHP(int _attackPoint)
 {
+	// Battle 
 	SetHp(GetHp() - _attackPoint);
 	if (GetHp() <= 0)
 	{

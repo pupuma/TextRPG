@@ -6,6 +6,11 @@ class Monster
 	: public Character
 {
 private:
+	int iMHp;
+	int iMAttackPoint ;
+	int iMDefensePoint;
+	int iMGold;
+	int iMExp ;
 	std::string sMonsterName;
 public:
 	Monster();
@@ -19,17 +24,17 @@ public:
 	void SetGold(int _gold);
 	void Update();
 public:
-	int GetHp() { return iHp; }
-	void SetHp(int _hp) { iHp = _hp; }
+	int GetHp() { return iMHp; }
+	void SetHp(int _hp) { iMHp = _hp; }
 
-	int GetAttackPoint() { return iAttackPoint; }
-	void SetAttackPoint(int _point) { iAttackPoint = _point; }
+	int GetAttackPoint() { return iMAttackPoint; }
+	void SetAttackPoint(int _point) { iMAttackPoint = _point; }
 
-	int GetDefensePoint() { return iDefensePoint; }
-	void SetDefensePoint(int _point) { iDefensePoint = _point; }
+	int GetDefensePoint() { return iMDefensePoint; }
+	void SetDefensePoint(int _point) { iMDefensePoint = _point; }
 
-	int GetExp() { return iExp; }
-	void SetExp(int _exp) { iExp = _exp; }
+	int GetExp() { return iMExp; }
+	void SetExp(int _exp) { iMExp = _exp; }
 public:
 	void DecreaseHP(int _attackPoint);
 

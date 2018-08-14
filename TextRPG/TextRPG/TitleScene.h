@@ -12,7 +12,7 @@ public:
 	TitleScene();
 	~TitleScene();
 public:
-	void Init(int _index);
+	void Init();
 	void Update();
 public:
 

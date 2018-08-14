@@ -23,7 +23,7 @@ PlayerGenerationScene::~PlayerGenerationScene()
 	delete parser;
 }
 
-void PlayerGenerationScene::Init(int _index)
+void PlayerGenerationScene::Init()
 {
 	pargraphCount = 0;
 	paragraphList = parser->CSVParsing("PlayerGenerationScene.csv", &pargraphCount);

@@ -31,7 +31,7 @@ BeginningVillageScene::~BeginningVillageScene()
 	delete parser;
 }
 
-void BeginningVillageScene::Init(int _index)
+void BeginningVillageScene::Init( )
 {
 	system("cls");
 
@@ -68,7 +68,9 @@ void BeginningVillageScene::Update()
 			GameSystem::GetInstance()->Save(_character);
 			break;
 		case 4:
-			SceneManager::GetInstance()->ChangeScene(eScene::SCENE_DUNGEON, 0);
+			SceneManager::GetInstance()->Release();
+
+			SceneManager::GetInstance()->ChangeScene(eScene::SCENE_DUNGEON);
 			break;
 		case 5:
 			_character->PlayerState();

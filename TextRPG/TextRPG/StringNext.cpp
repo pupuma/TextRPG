@@ -29,7 +29,9 @@ void StringNext::Process(int* nextBranch, eScene type, bool* isQuit)
 			switch (type)
 			{
 			case eScene::SCENE_CREATECHACTER:
-				SceneManager::GetInstance()->ChangeScene(eScene::SCENE_VILLAGE, 0);
+
+				SceneManager::GetInstance()->Release();
+				SceneManager::GetInstance()->ChangeScene(eScene::SCENE_VILLAGE);
 				*isQuit = true;
 				break;
 			case eScene::SCENE_VILLAGE:

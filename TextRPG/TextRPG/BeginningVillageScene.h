@@ -24,7 +24,7 @@ public:
 	BeginningVillageScene();
 	~BeginningVillageScene();
 public:
-	void Init(int _index);
+	void Init();
 	void Update();
 public:
 	void InitMap();

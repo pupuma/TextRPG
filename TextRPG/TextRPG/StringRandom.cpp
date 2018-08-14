@@ -15,6 +15,7 @@ StringRandom::StringRandom()
 
 StringRandom::~StringRandom()
 {
+	delete _monster;
 }
 
 void StringRandom::Process(int* nextBranch, eScene type, bool * isQuit)

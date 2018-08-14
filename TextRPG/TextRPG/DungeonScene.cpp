@@ -12,17 +12,18 @@ DungeonScene::DungeonScene()
 {
 	iPlayerSelect = 0;
 	_player = GameSystem::GetInstance()->GetCharacter();
-}
-
-
-DungeonScene::~DungeonScene()
-{
 	parser = new ParsingSystem();
 	iBranch = 0;
 	isQuit = false;
 }
 
-void DungeonScene::Init(int _index)
+
+DungeonScene::~DungeonScene()
+{
+	delete parser;
+}
+
+void DungeonScene::Init()
 {
 	system("cls");
 	pargraphCount = 0;
@@ -50,7 +51,9 @@ void DungeonScene::Update()
 		}
 		else if ('n' == chText || 'N' == chText)
 		{
-			SceneManager::GetInstance()->ChangeScene(eScene::SCENE_VILLAGE, 0);
+			SceneManager::GetInstance()->Release();
+
+			SceneManager::GetInstance()->ChangeScene(eScene::SCENE_VILLAGE);
 			break;
 		}
 		else if (std::cin.fail())

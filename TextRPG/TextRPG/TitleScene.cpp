@@ -18,7 +18,7 @@ TitleScene::~TitleScene()
 
 }
 
-void TitleScene::Init(int _index)
+void TitleScene::Init()
 {
 }
 
@@ -40,7 +40,8 @@ void TitleScene::Update()
 		switch (iPlayerSelect)
 		{
 		case 1:
-			SceneManager::GetInstance()->ChangeScene(eScene::SCENE_CREATECHACTER, 0);
+			SceneManager::GetInstance()->Release();
+			SceneManager::GetInstance()->ChangeScene(eScene::SCENE_CREATECHACTER);
 			isStart = true;
 			break;
 		case 2:
@@ -48,7 +49,8 @@ void TitleScene::Update()
 
 			if (true == _isLoad)
 			{
-				SceneManager::GetInstance()->ChangeScene(eScene::SCENE_VILLAGE, 0);
+				SceneManager::GetInstance()->Release();
+				SceneManager::GetInstance()->ChangeScene(eScene::SCENE_VILLAGE);
 				isStart = true;
 
 			}

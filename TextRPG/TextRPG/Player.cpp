@@ -19,6 +19,7 @@ Player::Player()
 
 Player::~Player()
 {
+	delete eq;
 }
 
 void Player::SetName(std::string _name)

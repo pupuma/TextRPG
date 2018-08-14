@@ -17,7 +17,7 @@ public:
 	PlayerGenerationScene();
 	~PlayerGenerationScene();
 public:
-	void Init(int _index);
+	void Init();
 	void Update();
 
 };

@@ -21,7 +21,7 @@ public:
 	DungeonScene();
 	~DungeonScene();
 public:
-	void Init(int _index);
+	void Init();
 	void Update();
 	void DungeonStart();
 };

@@ -20,7 +20,8 @@ private:
 public:
 	static SceneManager* GetInstance();
 public:
-	void ChangeScene(eScene sceneType, int _index);
+	void ChangeScene(eScene sceneType);
 	void Update();
 	void Release();
+
 };

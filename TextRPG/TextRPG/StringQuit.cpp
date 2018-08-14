@@ -21,12 +21,15 @@ void StringQuit::Process(int * nextBranch, eScene type, bool * isQuit)
 	if (type == eScene::SCENE_CREATECHACTER)
 	{
 		*isQuit = true;
-		SceneManager::GetInstance()->ChangeScene(eScene::SCENE_VILLAGE, 0);
+		SceneManager::GetInstance()->Release();
+		SceneManager::GetInstance()->ChangeScene(eScene::SCENE_VILLAGE);
 	}
 	else if (type == eScene::SCENE_DUNGEON)
 	{
 		*isQuit = true;
-		SceneManager::GetInstance()->ChangeScene(eScene::SCENE_VILLAGE, 0);
+		SceneManager::GetInstance()->Release();
+		SceneManager::GetInstance()->ChangeScene(eScene::SCENE_VILLAGE);
+
 	}
 	
 

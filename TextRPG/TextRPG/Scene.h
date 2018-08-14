@@ -13,7 +13,7 @@ public:
 	Scene();
 	~Scene();
 public:
-	virtual void Init(int _index) = 0;
+	virtual void Init() = 0;
 	virtual void Update() = 0;
 public:
 	void SetSceneType(eScene _type);

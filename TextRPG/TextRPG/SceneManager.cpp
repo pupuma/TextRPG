@@ -15,7 +15,7 @@ SceneManager::SceneManager()
 
 SceneManager::~SceneManager()
 {
-
+	delete _instance;
 }
 
 SceneManager* SceneManager::GetInstance()
@@ -27,25 +27,25 @@ SceneManager* SceneManager::GetInstance()
 	return _instance;
 }
 
-void SceneManager::ChangeScene(eScene sceneType, int _index)
+void SceneManager::ChangeScene(eScene sceneType)
 {
 	switch (sceneType)
 	{
 	case eScene::SCENE_TITLE:
 		_scene = new TitleScene();
-		_scene->Init(_index);
+		_scene->Init();
 		break;
 	case eScene::SCENE_CREATECHACTER:
 		_scene = new PlayerGenerationScene();
-		_scene->Init(_index);
+		_scene->Init();
 		break;
 	case eScene::SCENE_VILLAGE:
 		_scene = new BeginningVillageScene();
-		_scene->Init(_index);
+		_scene->Init();
 		break;
 	case eScene::SCENE_DUNGEON:
 		_scene = new DungeonScene();
-		_scene->Init(_index);
+		_scene->Init();
 		break;
 	}
 }
@@ -58,5 +58,4 @@ void SceneManager::Update()
 void SceneManager::Release()
 {
 	delete _scene;
-	delete _instance;
 }

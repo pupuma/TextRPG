@@ -54,6 +54,23 @@ public:
 	void StateUp();
 	
 public:
+	void CharacterWear(sEquipment* _eq, std::string sName, int _iSelect);
+	void ChangeWear(sEquipment* _eq, std::string sName, int _iSelect);
+	void ChangeWearState(int iAttackPointInfo, int iDefensiveInfo, int iStrInfo, int iDexInfo, int iIntInfo);
+public:
+	void Update();
+	void WarriorStateUpdate();
+	void ArcherStateUpdate();
+	void WizardStateUpdate();
+	void DecreaseHP(int _attackPoint);
+	void Reset(int _hp);
+	void IncreaseExp(Character* _monster);
+	void LevelUp();
+	int Skill();
+	int SkillDamge(int iSelectSkill);
+	void DrinkingPoseon();
+
+public:
 	eJobType GetjobType() { return jobType; }
 	std::string GetName() { return sPlayerName;  }
 	int GetHp() { return iHp; }
@@ -84,22 +101,6 @@ public:
 	void SetMaxHp(int _hp) { iMaxHp = _hp; }
 	void SetMaxMp(int _mp) { iMaxHp = _mp; }
 
-public:
-	void CharacterWear(sEquipment* _eq, std::string sName ,int _iSelect);
-	void ChangeWear(sEquipment* _eq, std::string sName, int _iSelect);
-	void ChangeWearState( int iAttackPointInfo, int iDefensiveInfo, int iStrInfo, int iDexInfo, int iIntInfo);
-public:
-	void Update();
-	void WarriorStateUpdate();
-	void ArcherStateUpdate();
-	void WizardStateUpdate();
-	void DecreaseHP(int _attackPoint);
-	void Reset(int _hp);
-	void IncreaseExp( Character* _monster);
-	void LevelUp();
-	int Skill();
-	int SkillDamge(int iSelectSkill);
-	void DrinkingPoseon();
 
 };
 

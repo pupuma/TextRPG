@@ -50,10 +50,7 @@ void GameSystem::InitPosen(Character* _player)
 				lPoseonInventory.push_back(*itPosen);
 			}
 		}
-
 	}
-	
-
 }
 
 void GameSystem::CharacterCreate(eCharacterType type)

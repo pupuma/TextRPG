@@ -730,6 +730,7 @@ void Player::IncreaseExp(Character* _monster)
 	{
 		LevelUp();
 	}
+	iExp = GetLv() * 1000 + GetStr() + GetDex() + GetInt();
 
 }
 
